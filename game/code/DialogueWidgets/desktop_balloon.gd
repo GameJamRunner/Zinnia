@@ -176,15 +176,9 @@ func _on_mutated(_mutation: Dictionary) -> void:
 	)
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
-	# Handle scroll events
-	if event is InputEventMouseButton and event.is_pressed():
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			%MessageScrollContainer.scroll_vertical -= 32  # Adjust scroll speed as needed
-			return
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			%MessageScrollContainer.scroll_vertical += 32  # Adjust scroll speed as needed
-			return
-
+	if event is InputEventMouseButton and event.is_pressed() and (event.button_index == MOUSE_BUTTON_WHEEL_UP || event.button_index == MOUSE_BUTTON_WHEEL_DOWN):
+		message_scroll_container._gui_input(event)
+		return
 	# Handle skipping typing effect
 	var current_label
 
@@ -214,9 +208,6 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 			next(dialogue_line.next_id)
 			return
-
-
-
 
 func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
 	next(response.next_id)
