@@ -69,6 +69,8 @@ Panel/styles/panel = SubResource("StyleBoxFlat_uy0d5")
 [node name="DesktopBalloon" type="CanvasLayer"]
 layer = 100
 script = ExtResource("1_esuuq")
+next_action = null
+skip_action = null
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false

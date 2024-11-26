@@ -1,11 +1,12 @@
 extends CanvasLayer
+
 ## A basic dialogue balloon for use with Dialogue Manager.
 
 ## The action to use for advancing the dialogue
-@export var next_action: StringName = &"ui_accept"
+@export var next_action: StringName = "ui_accept"
 
 ## The action to use to skip typing the dialogue
-@export var skip_action: StringName = &"ui_cancel"
+@export var skip_action: StringName = "ui_cancel"
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -28,12 +29,12 @@ var dialogue_line: DialogueLine:
 		balloon.focus_mode = Control.FOCUS_ALL
 		balloon.grab_focus()
 
-		# The dialogue has finished so close the balloon
+		# The dialogue has finished, so close the balloon
 		if not next_dialogue_line:
 			queue_free()
 			return
 
-		# If the node isn't ready yet then none of the labels will be ready yet either
+		# If the node isn't ready yet, then none of the labels will be ready yet either
 		if not is_node_ready():
 			await ready
 
@@ -42,30 +43,28 @@ var dialogue_line: DialogueLine:
 		# Determine if the character is the narrator
 		var is_narrator = dialogue_line.character == "narrator"
 
-		# Set up character label
-		setup_character_label(dialogue_line, is_narrator)
-
-		# Hide both labels initially
-		dialogue_label.hide()
-		narrator_label.hide()
-
-		responses_menu.hide()
-		responses_menu.set_responses(dialogue_line.responses)
+		%ResponsesMenu.hide()
+		%ResponsesMenu.set_responses(dialogue_line.responses)
 
 		# Show our balloon
 		balloon.show()
 		will_hide_balloon = false
 
-		# Display the dialogue line on the appropriate label
 		if is_narrator:
+			# Use narrator_label as before
 			await display_narrator_line(dialogue_line)
 		else:
-			await display_dialogue_line(dialogue_line)
+			# Create a new Message instance for non-narrator lines
+			var message = preload("res://game/code/Desktop/message.tscn").instantiate()
+			# Add the message to message_history
+			%MessageHistory.add_child(message)
+			# Set up the message
+			await display_dialogue_line(dialogue_line, message)
 
 		# Wait for input
 		if dialogue_line.responses.size() > 0:
 			balloon.focus_mode = Control.FOCUS_NONE
-			responses_menu.show()
+			%ResponsesMenu.show()
 		elif dialogue_line.time != "":
 			var time = dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
 			await get_tree().create_timer(time).timeout
@@ -78,25 +77,18 @@ var dialogue_line: DialogueLine:
 		return dialogue_line
 
 ## The base balloon anchor
-@onready var balloon: Control = %Balloon
+@onready var balloon: Control = $Balloon
 
-## The label showing the name of the currently speaking character
-@onready var character_label: RichTextLabel = %CharacterLabel
+@onready var narrator_label: DialogueLabel = $NarratorLabel
 
-## The label showing the currently spoken dialogue
-@onready var dialogue_label: DialogueLabel = %DialogueLabel
-@onready var narrator_label: DialogueLabel = %NarratorLabel
-
-## The menu of responses
-@onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
 
 func _ready() -> void:
 	balloon.hide()
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 
 	# If the responses menu doesn't have a next action set, use this one
-	if responses_menu.next_action.is_empty():
-		responses_menu.next_action = next_action
+	if %ResponsesMenu.next_action.is_empty():
+		%ResponsesMenu.next_action = next_action
 
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
@@ -104,12 +96,19 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 func _notification(what: int) -> void:
 	## Detect a change of locale and update the current dialogue line to show the new language
-	if what == NOTIFICATION_TRANSLATION_CHANGED and _locale != TranslationServer.get_locale() and is_instance_valid(dialogue_label):
+	if what == NOTIFICATION_TRANSLATION_CHANGED and _locale != TranslationServer.get_locale() and is_instance_valid(dialogue_line):
 		_locale = TranslationServer.get_locale()
-		var visible_ratio = dialogue_label.visible_ratio
-		self.dialogue_line = await resource.get_next_dialogue_line(dialogue_line.id)
-		if visible_ratio < 1:
-			dialogue_label.skip_typing()
+		if narrator_label.visible:
+			var visible_ratio = narrator_label.visible_ratio
+			self.dialogue_line = await resource.get_next_dialogue_line(dialogue_line.id)
+			if visible_ratio < 1:
+				narrator_label.skip_typing()
+		else:
+			var current_message = %MessageHistory.get_child(%MessageHistory.get_child_count() - 1)
+			var visible_ratio = current_message.dialogue_label.visible_ratio
+			self.dialogue_line = await resource.get_next_dialogue_line(dialogue_line.id)
+			if visible_ratio < 1:
+				current_message.dialogue_label.skip_typing()
 
 ## Start some dialogue
 func start(dialogue_resource: DialogueResource, title: String, extra_game_states: Array = []) -> void:
@@ -122,19 +121,13 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 func next(next_id: String) -> void:
 	self.dialogue_line = await resource.get_next_dialogue_line(next_id, temporary_game_states)
 
-# Helper function to set up the character label
-func setup_character_label(dialogue_line: DialogueLine, is_narrator: bool) -> void:
-	character_label.visible = not dialogue_line.character.is_empty() and not is_narrator
-	if character_label.visible:
-		character_label.text = tr(dialogue_line.character, "dialogue")
-
 # Helper function to display the dialogue line for non-narrator characters
-func display_dialogue_line(dialogue_line: DialogueLine) -> void:
-	dialogue_label.dialogue_line = dialogue_line
-	dialogue_label.show()
-	if not dialogue_line.text.is_empty():
-		dialogue_label.type_out()
-		await dialogue_label.finished_typing
+func display_dialogue_line(dialogue_line: DialogueLine, message: Message) -> void:
+	# Set the character name
+	var character_name = tr(dialogue_line.character, "dialogue")
+	message.set_character_name(character_name)
+	# Set the dialogue line
+	await message.set_dialogue_line(dialogue_line)
 
 # Helper function to display the dialogue line for the narrator
 func display_narrator_line(dialogue_line: DialogueLine) -> void:
@@ -142,7 +135,6 @@ func display_narrator_line(dialogue_line: DialogueLine) -> void:
 	narrator_label.dialogue_line = dialogue_line
 	# Wrap the text with center tags
 	narrator_label.dialogue_line.text = "[center]" + dialogue_line.text + "[/center]"
-	#narrator_label.dialogue_line.text = dialogue_line.text
 	narrator_label.show()
 	if not dialogue_line.text.is_empty():
 		narrator_label.type_out()
@@ -160,8 +152,15 @@ func _on_mutated(_mutation: Dictionary) -> void:
 	)
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
-	# See if we need to skip typing of the dialogue
-	var current_label = narrator_label if narrator_label.visible else dialogue_label
+	# Handle skipping typing effect
+	var current_label
+
+	if narrator_label.visible:
+		current_label = narrator_label
+	else:
+		var current_message = %MessageHistory.get_child(%MessageHistory.get_child_count() - 1) as Message
+		current_label = current_message.dialogue_label
+
 	if current_label.is_typing:
 		var mouse_was_clicked: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()
 		var skip_button_was_pressed: bool = event.is_action_pressed(skip_action)
@@ -175,7 +174,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 	if dialogue_line.responses.size() > 0:
 		return
 
-	# When there are no response options the balloon itself is the clickable thing
+	# When there are no response options, the balloon itself is the clickable thing
 	get_viewport().set_input_as_handled()
 
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
