@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqmforixubxdx"]
+
+[ext_resource type="Script" path="res://game/code/Desktop/timestamp.gd" id="1_me0wv"]
+
+[node name="TimeStamp" type="HBoxContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_me0wv")
+
+[node name="TimeLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.129558, 0.129558, 0.129558, 1)
+text = "ARIA"

@@ -30,6 +30,9 @@ var _locale: String = TranslationServer.get_locale()
 ## The container for message history
 @onready var message_history: VBoxContainer = %MessageHistory
 
+## The scroll container
+@onready var message_scroll_container: ScrollContainer = %MessageScrollContainer
+
 ## The menu of responses
 @onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
 
@@ -55,8 +58,9 @@ var dialogue_line: DialogueLine:
 		narrator_label.hide()
 		narrator_label.text = ""  # Optionally clear the text
 
-		# Determine if the character is the narrator
+		# Determine the type of line
 		var is_narrator = dialogue_line.character == "narrator"
+		var is_timestamp = dialogue_line.character == "time"
 
 		%ResponsesMenu.hide()
 		%ResponsesMenu.set_responses(dialogue_line.responses)
@@ -68,6 +72,13 @@ var dialogue_line: DialogueLine:
 		if is_narrator:
 			# Use narrator_label as before
 			await display_narrator_line(dialogue_line)
+		elif is_timestamp:
+			# Create a new TimeStamp instance
+			var timestamp = preload("res://game/code/Desktop/timestamp.tscn").instantiate()
+			# Add the timestamp to MessageHistory
+			%MessageHistory.add_child(timestamp)
+			# Set the time
+			timestamp.set_time(dialogue_line.text)
 		else:
 			# Create a new Message instance for non-narrator lines
 			var message = preload("res://game/code/Desktop/message.tscn").instantiate()
@@ -98,7 +109,7 @@ func _ready() -> void:
 	# If the responses menu doesn't have a next action set, use this one
 	if %ResponsesMenu.next_action.is_empty():
 		%ResponsesMenu.next_action = next_action
-	
+		
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
 	get_viewport().set_input_as_handled()
@@ -167,10 +178,16 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 	if narrator_label.visible:
 		current_label = narrator_label
 	else:
-		var current_message = %MessageHistory.get_child(%MessageHistory.get_child_count() - 1) as Message
-		current_label = current_message.dialogue_label
+		var last_child = %MessageHistory.get_child(%MessageHistory.get_child_count() - 1)
+		if last_child is Message:
+			var current_message = last_child as Message
+			current_label = current_message.dialogue_label
+		else:
+			# The last child is not a Message, so we handle accordingly
+			# For example, if it's a TimeStamp, we might skip to the next dialogue line
+			current_label = null
 
-	if current_label.is_typing:
+	if current_label and current_label.is_typing:
 		var mouse_was_clicked: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()
 		var skip_button_was_pressed: bool = event.is_action_pressed(skip_action)
 		if mouse_was_clicked or skip_button_was_pressed:
@@ -190,6 +207,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 		next(dialogue_line.next_id)
 	elif event.is_action_pressed(next_action) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
+
 
 func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
 	next(response.next_id)
