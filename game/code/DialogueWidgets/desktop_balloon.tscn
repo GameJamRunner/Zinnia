@@ -126,6 +126,17 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
+[node name="Balloon" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = SubResource("Theme_qq3yp")
+
 [node name="Responses" type="MarginContainer" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
@@ -138,6 +149,7 @@ offset_right = 344.0
 offset_bottom = -108.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 0
 
 [node name="ResponsesMenu" type="HBoxContainer" parent="Responses" node_paths=PackedStringArray("response_template")]
 unique_name_in_owner = true
@@ -163,18 +175,5 @@ layout_mode = 2
 theme = ExtResource("8_ey361")
 text = "Response example"
 
-[node name="Balloon" type="Control" parent="."]
-unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 0
-offset_left = 291.0
-offset_top = 256.0
-offset_right = 967.0
-offset_bottom = 550.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme = SubResource("Theme_qq3yp")
-
-[connection signal="response_selected" from="Responses/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
+[connection signal="response_selected" from="Responses/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]

@@ -25,7 +25,7 @@ var _locale: String = TranslationServer.get_locale()
 ## The base balloon anchor
 @onready var balloon: Control = %Balloon
 
-@onready var narrator_label: DialogueLabel = $NarratorLabel
+@onready var narrator_label: DialogueLabel = %NarratorLabel
 
 ## The container for message history
 @onready var message_history: VBoxContainer = %MessageHistory
@@ -58,12 +58,12 @@ var dialogue_line: DialogueLine:
 		narrator_label.hide()
 		narrator_label.text = ""  # Optionally clear the text
 
-		# Determine the type of line
-		var is_narrator = dialogue_line.character == "narrator"
+		# Determine the type of line, treating "tutorial" as "narrator"
+		var is_narrator = dialogue_line.character == "narrator" or dialogue_line.character == "tutorial"
 		var is_timestamp = dialogue_line.character == "time"
 
-		%ResponsesMenu.hide()
-		%ResponsesMenu.set_responses(dialogue_line.responses)
+		responses_menu.hide()
+		responses_menu.set_responses(dialogue_line.responses)
 
 		# Show our balloon
 		balloon.show()
@@ -76,21 +76,21 @@ var dialogue_line: DialogueLine:
 			# Create a new TimeStamp instance
 			var timestamp = preload("res://game/code/Desktop/timestamp.tscn").instantiate()
 			# Add the timestamp to MessageHistory
-			%MessageHistory.add_child(timestamp)
+			message_history.add_child(timestamp)
 			# Set the time
 			timestamp.set_time(dialogue_line.text)
 		else:
 			# Create a new Message instance for non-narrator lines
 			var message = preload("res://game/code/Desktop/message.tscn").instantiate()
 			# Add the message to MessageHistory
-			%MessageHistory.add_child(message)
+			message_history.add_child(message)
 			# Set up the message
 			await display_dialogue_line(dialogue_line, message)
 
 		# Wait for input
 		if dialogue_line.responses.size() > 0:
 			balloon.focus_mode = Control.FOCUS_NONE
-			%ResponsesMenu.show()
+			responses_menu.show()
 		elif dialogue_line.time != "":
 			var time = dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
 			await get_tree().create_timer(time).timeout
@@ -107,9 +107,9 @@ func _ready() -> void:
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 
 	# If the responses menu doesn't have a next action set, use this one
-	if %ResponsesMenu.next_action.is_empty():
-		%ResponsesMenu.next_action = next_action
-		
+	if responses_menu.next_action.is_empty():
+		responses_menu.next_action = next_action
+
 func _unhandled_input(event: InputEvent) -> void:
 	# Only handle specific input events
 	if is_waiting_for_input and balloon.visible:
@@ -128,7 +128,7 @@ func _notification(what: int) -> void:
 			if visible_ratio < 1:
 				narrator_label.skip_typing()
 		else:
-			var current_message = %MessageHistory.get_child(%MessageHistory.get_child_count() - 1)
+			var current_message = message_history.get_child(message_history.get_child_count() - 1)
 			var visible_ratio = current_message.dialogue_label.visible_ratio
 			self.dialogue_line = await resource.get_next_dialogue_line(dialogue_line.id)
 			if visible_ratio < 1:
@@ -157,6 +157,8 @@ func display_dialogue_line(dialogue_line: DialogueLine, message: Message) -> voi
 func display_narrator_line(dialogue_line: DialogueLine) -> void:
 	narrator_label.bbcode_enabled = true
 	narrator_label.dialogue_line = dialogue_line
+	if dialogue_line.character == "tutorial":
+		dialogue_line.text = "TUTORIAL: " + dialogue_line.text
 	# Wrap the text with center tags
 	narrator_label.dialogue_line.text = "[center]" + dialogue_line.text + "[/center]"
 	narrator_label.show()
@@ -185,7 +187,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 	if narrator_label.visible:
 		current_label = narrator_label
 	else:
-		var last_child = %MessageHistory.get_child(%MessageHistory.get_child_count() - 1)
+		var last_child = message_history.get_child(message_history.get_child_count() - 1)
 		if last_child is Message:
 			var current_message = last_child as Message
 			current_label = current_message.dialogue_label
