@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://73jm5qjy52vq"]
+[gd_scene load_steps=14 format=3 uid="uid://73jm5qjy52vq"]
 
 [ext_resource type="Script" path="res://game/code/DialogueWidgets/desktop_balloon.gd" id="1_esuuq"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_7r8li"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cj7fvfpjdvpcf" path="res://game/assets/background.png" id="3_cpeu0"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_y2fhi"]
 [ext_resource type="Script" path="res://game/code/DialogueWidgets/message_scroll_container.gd" id="5_05xb1"]
+[ext_resource type="Theme" uid="uid://chac18av44lpc" path="res://game/themes/theme_desktop.tres" id="8_ey361"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)
@@ -107,6 +108,7 @@ offset_left = 271.0
 offset_top = 236.0
 offset_right = 1007.0
 offset_bottom = 620.0
+theme = ExtResource("8_ey361")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 script = ExtResource("5_05xb1")
@@ -162,30 +164,41 @@ size_flags_vertical = 3
 text = "Dialogue..."
 
 [node name="Responses" type="MarginContainer" parent="Balloon"]
-visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -147.0
-offset_top = -558.0
-offset_right = 494.0
-offset_bottom = -154.0
+offset_left = -347.0
+offset_top = -174.0
+offset_right = 278.0
+offset_bottom = -110.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="ResponsesMenu" type="VBoxContainer" parent="Balloon/Responses" node_paths=PackedStringArray("response_template")]
+[node name="ResponsesMenu" type="HBoxContainer" parent="Balloon/Responses" node_paths=PackedStringArray("response_template")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_constants/separation = 2
+theme_override_constants/separation = 10
+alignment = 1
 script = ExtResource("3_y2fhi")
 response_template = NodePath("ResponseExample")
 
 [node name="ResponseExample" type="Button" parent="Balloon/Responses/ResponsesMenu"]
 layout_mode = 2
+theme = ExtResource("8_ey361")
+text = "Response example"
+
+[node name="ResponseExample2" type="Button" parent="Balloon/Responses/ResponsesMenu"]
+layout_mode = 2
+theme = ExtResource("8_ey361")
+text = "Response example"
+
+[node name="ResponseExample3" type="Button" parent="Balloon/Responses/ResponsesMenu"]
+layout_mode = 2
+theme = ExtResource("8_ey361")
 text = "Response example"
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]

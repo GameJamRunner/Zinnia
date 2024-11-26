@@ -1,0 +1,54 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://chac18av44lpc"]
+
+[ext_resource type="Texture2D" uid="uid://dr0qvgv2162h3" path="res://game/assets/Choice Hover.png" id="1_0qhyo"]
+[ext_resource type="Texture2D" uid="uid://cela2vl5tgxlc" path="res://game/assets/Choice.png" id="2_sk1hr"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ekwsn"]
+texture = ExtResource("1_0qhyo")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g1h2q"]
+texture = ExtResource("2_sk1hr")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8cdl"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv2gm"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_right = 10
+border_color = Color(0, 0, 0, 1)
+
+[resource]
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/styles/focus = SubResource("StyleBoxTexture_ekwsn")
+Button/styles/hover = SubResource("StyleBoxTexture_ekwsn")
+Button/styles/hover_mirrored = SubResource("StyleBoxTexture_ekwsn")
+Button/styles/hover_pressed = SubResource("StyleBoxTexture_ekwsn")
+Button/styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_ekwsn")
+Button/styles/normal = SubResource("StyleBoxTexture_g1h2q")
+Button/styles/pressed = SubResource("StyleBoxTexture_g1h2q")
+Button/styles/pressed_mirrored = SubResource("StyleBoxTexture_g1h2q")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_l8cdl")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_l8cdl")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_l8cdl")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_gv2gm")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_gv2gm")
