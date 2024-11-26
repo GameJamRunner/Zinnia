@@ -158,7 +158,7 @@ func display_narrator_line(dialogue_line: DialogueLine) -> void:
 	narrator_label.bbcode_enabled = true
 	narrator_label.dialogue_line = dialogue_line
 	if dialogue_line.character == "tutorial":
-		dialogue_line.text = "TUTORIAL: " + dialogue_line.text
+		dialogue_line.text = "[color=purple]TUTORIAL: " + dialogue_line.text + "[/color]"
 	# Wrap the text with center tags
 	narrator_label.dialogue_line.text = "[center]" + dialogue_line.text + "[/center]"
 	narrator_label.show()
