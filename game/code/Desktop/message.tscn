@@ -30,7 +30,6 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_00mi3")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="DynamicLabelContainer"]
-z_index = -1
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 texture = ExtResource("2_e66yq")
@@ -53,8 +52,3 @@ size_flags_vertical = 3
 text = "Lorem ipsum dm veniam.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. dhweiufhew
 fwegre"
-
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-layout_mode = 2
-texture = ExtResource("2_e66yq")
