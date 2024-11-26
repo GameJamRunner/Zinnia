@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc75w6lyd8snj"]
+
+[ext_resource type="Texture2D" uid="uid://d07ta35ha63jn" path="res://game/assets/avatar_aria.png" id="1_dqwca"]
+[ext_resource type="Texture2D" uid="uid://clxqv0u36de8l" path="res://game/assets/dialogue_box_aria.png" id="2_e66yq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_00mi3"]
+
+[node name="Message" type="HBoxContainer"]
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_dqwca")
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "ARIA"
+
+[node name="DynamicLabelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_00mi3")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="DynamicLabelContainer"]
+z_index = -1
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture = ExtResource("2_e66yq")
+patch_margin_left = 50
+patch_margin_top = 29
+patch_margin_right = 36
+patch_margin_bottom = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="DynamicLabelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="RichTextLabel" parent="DynamicLabelContainer/MarginContainer"]
+layout_mode = 2
+text = "Lorem ipsum dm veniam.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. dhweiufhew
+fwegre
+"
+fit_content = true
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_e66yq")
+
+[connection signal="resized" from="DynamicLabelContainer/MarginContainer/Label" to="DynamicLabelContainer" method="_on_label_resized"]
