@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://73jm5qjy52vq"]
+[gd_scene load_steps=13 format=3 uid="uid://73jm5qjy52vq"]
 
 [ext_resource type="Script" path="res://game/code/DialogueWidgets/desktop_balloon.gd" id="1_esuuq"]
-[ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_7r8li"]
 [ext_resource type="Texture2D" uid="uid://y6y31metqbwm" path="res://game/assets/reference.png" id="2_bo03c"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="3_6yq40"]
 [ext_resource type="Texture2D" uid="uid://cj7fvfpjdvpcf" path="res://game/assets/background.png" id="3_cpeu0"]
@@ -127,57 +126,20 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Balloon" type="Control" parent="."]
-unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_qq3yp")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Balloon"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -60.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="CharacterLabel" type="RichTextLabel" parent="Balloon/VBoxContainer"]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.501961)
-layout_mode = 2
-mouse_filter = 1
-bbcode_enabled = true
-text = "Character"
-fit_content = true
-scroll_active = false
-
-[node name="DialogueLabel" parent="Balloon/VBoxContainer" instance=ExtResource("2_7r8li")]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-text = "Dialogue..."
-
-[node name="Responses" type="MarginContainer" parent="Balloon"]
-layout_mode = 1
+[node name="Responses" type="MarginContainer" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -347.0
-offset_top = -174.0
-offset_right = 278.0
-offset_bottom = -110.0
+offset_left = -369.0
+offset_top = -151.0
+offset_right = 344.0
+offset_bottom = -108.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="ResponsesMenu" type="HBoxContainer" parent="Balloon/Responses" node_paths=PackedStringArray("response_template")]
+[node name="ResponsesMenu" type="HBoxContainer" parent="Responses" node_paths=PackedStringArray("response_template")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
@@ -186,20 +148,33 @@ alignment = 1
 script = ExtResource("3_y2fhi")
 response_template = NodePath("ResponseExample")
 
-[node name="ResponseExample" type="Button" parent="Balloon/Responses/ResponsesMenu"]
+[node name="ResponseExample" type="Button" parent="Responses/ResponsesMenu"]
 layout_mode = 2
 theme = ExtResource("8_ey361")
 text = "Response example"
 
-[node name="ResponseExample2" type="Button" parent="Balloon/Responses/ResponsesMenu"]
+[node name="ResponseExample2" type="Button" parent="Responses/ResponsesMenu"]
 layout_mode = 2
 theme = ExtResource("8_ey361")
 text = "Response example"
 
-[node name="ResponseExample3" type="Button" parent="Balloon/Responses/ResponsesMenu"]
+[node name="ResponseExample3" type="Button" parent="Responses/ResponsesMenu"]
 layout_mode = 2
 theme = ExtResource("8_ey361")
 text = "Response example"
 
+[node name="Balloon" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 291.0
+offset_top = 256.0
+offset_right = 967.0
+offset_bottom = 550.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = SubResource("Theme_qq3yp")
+
+[connection signal="response_selected" from="Responses/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
-[connection signal="response_selected" from="Balloon/Responses/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]

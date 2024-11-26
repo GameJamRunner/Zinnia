@@ -23,7 +23,7 @@ var will_hide_balloon: bool = false
 var _locale: String = TranslationServer.get_locale()
 
 ## The base balloon anchor
-@onready var balloon: Control = $Balloon
+@onready var balloon: Control = %Balloon
 
 @onready var narrator_label: DialogueLabel = $NarratorLabel
 
@@ -110,9 +110,13 @@ func _ready() -> void:
 	if %ResponsesMenu.next_action.is_empty():
 		%ResponsesMenu.next_action = next_action
 		
-func _unhandled_input(_event: InputEvent) -> void:
-	# Only the balloon is allowed to handle input while it's showing
-	get_viewport().set_input_as_handled()
+func _unhandled_input(event: InputEvent) -> void:
+	# Only handle specific input events
+	if is_waiting_for_input and balloon.visible:
+		if event.is_action_pressed(next_action) or event.is_action_pressed(skip_action):
+			# Handle the input event
+			get_viewport().set_input_as_handled()
+			_on_balloon_gui_input(event)
 
 func _notification(what: int) -> void:
 	## Detect a change of locale and update the current dialogue line to show the new language
@@ -172,6 +176,12 @@ func _on_mutated(_mutation: Dictionary) -> void:
 	)
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
+		# Do not consume scroll events
+	if event is InputEventMouseMotion or event is InputEventMouseButton and event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
+		# Let the event pass through
+		pass
+		return
+		
 	# Handle skipping typing effect
 	var current_label
 
@@ -183,9 +193,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 			var current_message = last_child as Message
 			current_label = current_message.dialogue_label
 		else:
-			# The last child is not a Message, so we handle accordingly
-			# For example, if it's a TimeStamp, we might skip to the next dialogue line
-			current_label = null
+			current_label = null  # No label to handle
 
 	if current_label and current_label.is_typing:
 		var mouse_was_clicked: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()
@@ -195,18 +203,15 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 			current_label.skip_typing()
 			return
 
-	if not is_waiting_for_input:
-		return
-	if dialogue_line.responses.size() > 0:
-		return
+	# Handle advancing dialogue when waiting for input
+	if is_waiting_for_input and dialogue_line.responses.size() == 0:
+		var mouse_was_clicked: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()
+		var next_button_was_pressed: bool = event.is_action_pressed(next_action)
+		if mouse_was_clicked or next_button_was_pressed:
+			get_viewport().set_input_as_handled()
+			next(dialogue_line.next_id)
+			return
 
-	# When there are no response options, the balloon itself is the clickable thing
-	get_viewport().set_input_as_handled()
-
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-		next(dialogue_line.next_id)
-	elif event.is_action_pressed(next_action) and get_viewport().gui_get_focus_owner() == balloon:
-		next(dialogue_line.next_id)
 
 
 func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
