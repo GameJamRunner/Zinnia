@@ -22,6 +22,17 @@ var will_hide_balloon: bool = false
 
 var _locale: String = TranslationServer.get_locale()
 
+## The base balloon anchor
+@onready var balloon: Control = $Balloon
+
+@onready var narrator_label: DialogueLabel = $NarratorLabel
+
+## The container for message history
+@onready var message_history: VBoxContainer = %MessageHistory
+
+## The menu of responses
+@onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
+
 ## The current line
 var dialogue_line: DialogueLine:
 	set(next_dialogue_line):
@@ -40,6 +51,10 @@ var dialogue_line: DialogueLine:
 
 		dialogue_line = next_dialogue_line
 
+		# Hide the narrator_label (we'll show it later if needed)
+		narrator_label.hide()
+		narrator_label.text = ""  # Optionally clear the text
+
 		# Determine if the character is the narrator
 		var is_narrator = dialogue_line.character == "narrator"
 
@@ -56,7 +71,7 @@ var dialogue_line: DialogueLine:
 		else:
 			# Create a new Message instance for non-narrator lines
 			var message = preload("res://game/code/Desktop/message.tscn").instantiate()
-			# Add the message to message_history
+			# Add the message to MessageHistory
 			%MessageHistory.add_child(message)
 			# Set up the message
 			await display_dialogue_line(dialogue_line, message)
@@ -75,12 +90,6 @@ var dialogue_line: DialogueLine:
 			balloon.grab_focus()
 	get:
 		return dialogue_line
-
-## The base balloon anchor
-@onready var balloon: Control = $Balloon
-
-@onready var narrator_label: DialogueLabel = $NarratorLabel
-
 
 func _ready() -> void:
 	balloon.hide()

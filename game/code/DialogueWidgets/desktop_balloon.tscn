@@ -97,7 +97,7 @@ text = "narrator: It was a quiet evening when Aria messaged me out of nowhere."
 fit_content = true
 scroll_active = false
 script = ExtResource("3_6yq40")
-seconds_per_step = 0.001
+seconds_per_step = 0.05
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 
 [node name="MessageScrollContainer" type="ScrollContainer" parent="."]
@@ -160,6 +160,7 @@ size_flags_vertical = 3
 text = "Dialogue..."
 
 [node name="Responses" type="MarginContainer" parent="Balloon"]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
