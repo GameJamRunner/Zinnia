@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bc75w6lyd8snj"]
+[gd_scene load_steps=6 format=3 uid="uid://bc75w6lyd8snj"]
 
+[ext_resource type="Script" path="res://game/code/Desktop/message.gd" id="1_7gp32"]
 [ext_resource type="Texture2D" uid="uid://d07ta35ha63jn" path="res://game/assets/avatar_aria.png" id="1_dqwca"]
 [ext_resource type="Texture2D" uid="uid://clxqv0u36de8l" path="res://game/assets/dialogue_box_aria.png" id="2_e66yq"]
+[ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="4_j0x8q"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_00mi3"]
 
 [node name="Message" type="HBoxContainer"]
 size_flags_horizontal = 3
+script = ExtResource("1_7gp32")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -15,7 +18,8 @@ layout_mode = 2
 layout_mode = 2
 texture = ExtResource("1_dqwca")
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="CharacterLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "ARIA"
 
@@ -41,18 +45,15 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="RichTextLabel" parent="DynamicLabelContainer/MarginContainer"]
+[node name="DialogueLabel" parent="DynamicLabelContainer/MarginContainer" instance=ExtResource("4_j0x8q")]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
 text = "Lorem ipsum dm veniam.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. dhweiufhew
-fwegre
-"
-fit_content = true
-autowrap_mode = 2
+fwegre"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
 layout_mode = 2
 texture = ExtResource("2_e66yq")
-
-[connection signal="resized" from="DynamicLabelContainer/MarginContainer/Label" to="DynamicLabelContainer" method="_on_label_resized"]

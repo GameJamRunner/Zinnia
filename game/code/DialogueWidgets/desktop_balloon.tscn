@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://73jm5qjy52vq"]
+[gd_scene load_steps=13 format=3 uid="uid://73jm5qjy52vq"]
 
 [ext_resource type="Script" path="res://game/code/DialogueWidgets/desktop_balloon.gd" id="1_esuuq"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_7r8li"]
 [ext_resource type="Texture2D" uid="uid://y6y31metqbwm" path="res://game/assets/reference.png" id="2_bo03c"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="3_6yq40"]
+[ext_resource type="Texture2D" uid="uid://cj7fvfpjdvpcf" path="res://game/assets/background.png" id="3_cpeu0"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_y2fhi"]
 [ext_resource type="PackedScene" uid="uid://bc75w6lyd8snj" path="res://game/code/Desktop/message.tscn" id="4_i4q8n"]
 
@@ -76,16 +77,28 @@ offset_right = 1280.0
 offset_bottom = 720.0
 texture = ExtResource("2_bo03c")
 
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("3_cpeu0")
+
 [node name="NarratorLabel" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 23.0
+offset_left = 159.0
+offset_top = 20.0
+offset_right = -164.0
+offset_bottom = 85.0
 grow_horizontal = 2
-text = "hrth"
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "narrator: It was a quiet evening when Aria messaged me out of nowhere."
 fit_content = true
 scroll_active = false
 script = ExtResource("3_6yq40")
+seconds_per_step = 0.001
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -128,33 +141,17 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_qq3yp")
 
-[node name="Panel" type="Panel" parent="Balloon"]
-clip_children = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="Balloon"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 21.0
-offset_top = -183.0
-offset_right = -19.0
-offset_bottom = -19.0
+offset_top = -60.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 1
 
-[node name="Dialogue" type="MarginContainer" parent="Balloon/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Balloon/Panel/Dialogue"]
-layout_mode = 2
-
-[node name="CharacterLabel" type="RichTextLabel" parent="Balloon/Panel/Dialogue/VBoxContainer"]
+[node name="CharacterLabel" type="RichTextLabel" parent="Balloon/VBoxContainer"]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 2
@@ -164,13 +161,14 @@ text = "Character"
 fit_content = true
 scroll_active = false
 
-[node name="DialogueLabel" parent="Balloon/Panel/Dialogue/VBoxContainer" instance=ExtResource("2_7r8li")]
+[node name="DialogueLabel" parent="Balloon/VBoxContainer" instance=ExtResource("2_7r8li")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "Dialogue..."
 
 [node name="Responses" type="MarginContainer" parent="Balloon"]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

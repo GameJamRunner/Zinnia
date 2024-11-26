@@ -42,10 +42,8 @@ var dialogue_line: DialogueLine:
 		# Determine if the character is the narrator
 		var is_narrator = dialogue_line.character == "narrator"
 
-		# Set visibility of character_label
-		character_label.visible = not dialogue_line.character.is_empty() and not is_narrator
-		if character_label.visible:
-			character_label.text = tr(dialogue_line.character, "dialogue")
+		# Set up character label
+		setup_character_label(dialogue_line, is_narrator)
 
 		# Hide both labels initially
 		dialogue_label.hide()
@@ -58,20 +56,11 @@ var dialogue_line: DialogueLine:
 		balloon.show()
 		will_hide_balloon = false
 
+		# Display the dialogue line on the appropriate label
 		if is_narrator:
-			narrator_label.bbcode_enabled = true
-			narrator_label.dialogue_line = dialogue_line
-			narrator_label.dialogue_line.text = "[center]" + dialogue_line.text + "[/center]"
-			narrator_label.show()
-			if not dialogue_line.text.is_empty():
-				narrator_label.type_out()
-				await narrator_label.finished_typing
+			await display_narrator_line(dialogue_line)
 		else:
-			dialogue_label.dialogue_line = dialogue_line
-			dialogue_label.show()
-			if not dialogue_line.text.is_empty():
-				dialogue_label.type_out()
-				await dialogue_label.finished_typing
+			await display_dialogue_line(dialogue_line)
 
 		# Wait for input
 		if dialogue_line.responses.size() > 0:
@@ -101,7 +90,6 @@ var dialogue_line: DialogueLine:
 ## The menu of responses
 @onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
 
-
 func _ready() -> void:
 	balloon.hide()
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
@@ -110,11 +98,9 @@ func _ready() -> void:
 	if responses_menu.next_action.is_empty():
 		responses_menu.next_action = next_action
 
-
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
 	get_viewport().set_input_as_handled()
-
 
 func _notification(what: int) -> void:
 	## Detect a change of locale and update the current dialogue line to show the new language
@@ -125,22 +111,44 @@ func _notification(what: int) -> void:
 		if visible_ratio < 1:
 			dialogue_label.skip_typing()
 
-
 ## Start some dialogue
 func start(dialogue_resource: DialogueResource, title: String, extra_game_states: Array = []) -> void:
-	temporary_game_states =  [self] + extra_game_states
+	temporary_game_states = [self] + extra_game_states
 	is_waiting_for_input = false
 	resource = dialogue_resource
 	self.dialogue_line = await resource.get_next_dialogue_line(title, temporary_game_states)
-
 
 ## Go to the next line
 func next(next_id: String) -> void:
 	self.dialogue_line = await resource.get_next_dialogue_line(next_id, temporary_game_states)
 
+# Helper function to set up the character label
+func setup_character_label(dialogue_line: DialogueLine, is_narrator: bool) -> void:
+	character_label.visible = not dialogue_line.character.is_empty() and not is_narrator
+	if character_label.visible:
+		character_label.text = tr(dialogue_line.character, "dialogue")
+
+# Helper function to display the dialogue line for non-narrator characters
+func display_dialogue_line(dialogue_line: DialogueLine) -> void:
+	dialogue_label.dialogue_line = dialogue_line
+	dialogue_label.show()
+	if not dialogue_line.text.is_empty():
+		dialogue_label.type_out()
+		await dialogue_label.finished_typing
+
+# Helper function to display the dialogue line for the narrator
+func display_narrator_line(dialogue_line: DialogueLine) -> void:
+	narrator_label.bbcode_enabled = true
+	narrator_label.dialogue_line = dialogue_line
+	# Wrap the text with center tags
+	narrator_label.dialogue_line.text = "[center]" + dialogue_line.text + "[/center]"
+	#narrator_label.dialogue_line.text = dialogue_line.text
+	narrator_label.show()
+	if not dialogue_line.text.is_empty():
+		narrator_label.type_out()
+		await narrator_label.finished_typing
 
 #region Signals
-
 
 func _on_mutated(_mutation: Dictionary) -> void:
 	is_waiting_for_input = false
@@ -151,19 +159,21 @@ func _on_mutated(_mutation: Dictionary) -> void:
 			balloon.hide()
 	)
 
-
 func _on_balloon_gui_input(event: InputEvent) -> void:
 	# See if we need to skip typing of the dialogue
-	if dialogue_label.is_typing:
+	var current_label = narrator_label if narrator_label.visible else dialogue_label
+	if current_label.is_typing:
 		var mouse_was_clicked: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()
 		var skip_button_was_pressed: bool = event.is_action_pressed(skip_action)
 		if mouse_was_clicked or skip_button_was_pressed:
 			get_viewport().set_input_as_handled()
-			dialogue_label.skip_typing()
+			current_label.skip_typing()
 			return
 
-	if not is_waiting_for_input: return
-	if dialogue_line.responses.size() > 0: return
+	if not is_waiting_for_input:
+		return
+	if dialogue_line.responses.size() > 0:
+		return
 
 	# When there are no response options the balloon itself is the clickable thing
 	get_viewport().set_input_as_handled()
@@ -173,9 +183,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 	elif event.is_action_pressed(next_action) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
 
-
 func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
 	next(response.next_id)
-
 
 #endregion
