@@ -1,11 +1,11 @@
-~ this_is_a_node_title
-Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
-Nathan: Here are some choices.
-- First one
-	Nathan: You picked the first one.
-- Second one
-	Nathan: You picked the second one.
-- Start again => this_is_a_node_title
-- End the conversation => END
-Nathan: For more information see the online documentation.
+~ start
+time: 10:25 PM
+
+Aria: u there?
+Aria: ?
+Aria: Irina
+
+narrator: It was a quiet evening when Aria messaged me out of nowhere. 
+narrator: We hadn’t spoken much since high school, and seeing her name pop up felt strange—almost nostalgic.
+
 => END

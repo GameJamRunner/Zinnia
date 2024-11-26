@@ -1,4 +1,8 @@
 extends Node2D
 
+const Balloon = preload("res://game/code/DialogueWidgets/desktop_balloon.tscn")
+
 func _ready():
-	DialogueManager.show_example_dialogue_balloon(load("res://game/dialogues/test.dialogue"))
+	var balloon: Node = Balloon.instantiate()
+	get_tree().current_scene.add_child(balloon)
+	balloon.start(load("res://game/dialogues/test.dialogue"), "start")
