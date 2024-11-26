@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://73jm5qjy52vq"]
+[gd_scene load_steps=13 format=3 uid="uid://73jm5qjy52vq"]
 
 [ext_resource type="Script" path="res://game/code/DialogueWidgets/desktop_balloon.gd" id="1_esuuq"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_7r8li"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="3_6yq40"]
 [ext_resource type="Texture2D" uid="uid://cj7fvfpjdvpcf" path="res://game/assets/background.png" id="3_cpeu0"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_y2fhi"]
+[ext_resource type="Script" path="res://game/code/DialogueWidgets/message_scroll_container.gd" id="5_05xb1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)
@@ -108,6 +109,7 @@ offset_right = 1007.0
 offset_bottom = 620.0
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
+script = ExtResource("5_05xb1")
 
 [node name="MarginContainer" type="MarginContainer" parent="MessageScrollContainer"]
 layout_mode = 2
@@ -116,7 +118,7 @@ size_flags_vertical = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 70
 
 [node name="MessageHistory" type="VBoxContainer" parent="MessageScrollContainer/MarginContainer"]
 unique_name_in_owner = true

@@ -98,7 +98,7 @@ func _ready() -> void:
 	# If the responses menu doesn't have a next action set, use this one
 	if %ResponsesMenu.next_action.is_empty():
 		%ResponsesMenu.next_action = next_action
-
+	
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
 	get_viewport().set_input_as_handled()
