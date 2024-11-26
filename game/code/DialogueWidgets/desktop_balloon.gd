@@ -39,11 +39,17 @@ var dialogue_line: DialogueLine:
 
 		dialogue_line = next_dialogue_line
 
-		character_label.visible = not dialogue_line.character.is_empty()
-		character_label.text = tr(dialogue_line.character, "dialogue")
+		# Determine if the character is the narrator
+		var is_narrator = dialogue_line.character == "narrator"
 
+		# Set visibility of character_label
+		character_label.visible = not dialogue_line.character.is_empty() and not is_narrator
+		if character_label.visible:
+			character_label.text = tr(dialogue_line.character, "dialogue")
+
+		# Hide both labels initially
 		dialogue_label.hide()
-		dialogue_label.dialogue_line = dialogue_line
+		narrator_label.hide()
 
 		responses_menu.hide()
 		responses_menu.set_responses(dialogue_line.responses)
@@ -52,10 +58,20 @@ var dialogue_line: DialogueLine:
 		balloon.show()
 		will_hide_balloon = false
 
-		dialogue_label.show()
-		if not dialogue_line.text.is_empty():
-			dialogue_label.type_out()
-			await dialogue_label.finished_typing
+		if is_narrator:
+			narrator_label.bbcode_enabled = true
+			narrator_label.dialogue_line = dialogue_line
+			narrator_label.dialogue_line.text = "[center]" + dialogue_line.text + "[/center]"
+			narrator_label.show()
+			if not dialogue_line.text.is_empty():
+				narrator_label.type_out()
+				await narrator_label.finished_typing
+		else:
+			dialogue_label.dialogue_line = dialogue_line
+			dialogue_label.show()
+			if not dialogue_line.text.is_empty():
+				dialogue_label.type_out()
+				await dialogue_label.finished_typing
 
 		# Wait for input
 		if dialogue_line.responses.size() > 0:
@@ -80,6 +96,7 @@ var dialogue_line: DialogueLine:
 
 ## The label showing the currently spoken dialogue
 @onready var dialogue_label: DialogueLabel = %DialogueLabel
+@onready var narrator_label: DialogueLabel = %NarratorLabel
 
 ## The menu of responses
 @onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
