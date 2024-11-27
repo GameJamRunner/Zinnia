@@ -1,15 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://bc75w6lyd8snj"]
+[gd_scene load_steps=10 format=3 uid="uid://bc75w6lyd8snj"]
 
 [ext_resource type="Script" path="res://game/code/Desktop/message.gd" id="1_7gp32"]
 [ext_resource type="Texture2D" uid="uid://d07ta35ha63jn" path="res://game/assets/avatar_aria.png" id="1_dqwca"]
 [ext_resource type="Texture2D" uid="uid://clxqv0u36de8l" path="res://game/assets/dialogue_box_aria.png" id="2_e66yq"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="4_j0x8q"]
+[ext_resource type="Texture2D" uid="uid://deirdr3dtxvqu" path="res://game/assets/reply_button.png" id="5_gu6qm"]
+[ext_resource type="Texture2D" uid="uid://ckdvfe2n7kfy1" path="res://game/assets/reply_button_hover.png" id="6_olo1r"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_00mi3"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7472w"]
+[sub_resource type="ImageTexture" id="ImageTexture_81f86"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_583tx"]
+[sub_resource type="ImageTexture" id="ImageTexture_h7701"]
 
 [node name="Message" type="HBoxContainer"]
 custom_minimum_size = Vector2(500, 0)
@@ -59,9 +61,13 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Lorem ipsum dm veniam."
 
-[node name="Button" type="Button" parent="."]
+[node name="ReplyButton" type="TextureButton" parent="."]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_7472w")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_583tx")
 disabled = true
+texture_normal = ExtResource("5_gu6qm")
+texture_pressed = ExtResource("6_olo1r")
+texture_hover = ExtResource("6_olo1r")
+texture_disabled = SubResource("ImageTexture_81f86")
+texture_focused = SubResource("ImageTexture_h7701")
+stretch_mode = 3

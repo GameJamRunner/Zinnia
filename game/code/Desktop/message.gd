@@ -35,6 +35,7 @@ func set_character_name(name: String) -> void:
 	# Update the nine-patch rect texture
 	var nine_patch_texture = nine_patch_textures.get(name, default_nine_patch_texture)
 	%NinePatchRect.texture = nine_patch_texture
+	
 
 # Setter for the dialogue line
 func set_dialogue_line(dialogue_line: DialogueLine) -> void:
@@ -43,3 +44,15 @@ func set_dialogue_line(dialogue_line: DialogueLine) -> void:
 	if not dialogue_line.text.is_empty():
 		%DialogueLabel.type_out()
 		await %DialogueLabel.finished_typing
+
+func toggle_reply_button():
+	if name == "Aria":
+		if $ReplyButton.disabled:
+			# Enable the button if it's currently disabled
+			$ReplyButton.disabled = false
+		else:
+			# Disable the button if it's currently enabled
+			$ReplyButton.disabled = true
+	else:
+		$ReplyButton.disabled = true
+		
