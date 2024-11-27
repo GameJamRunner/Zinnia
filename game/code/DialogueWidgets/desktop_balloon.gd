@@ -61,6 +61,11 @@ var dialogue_line: DialogueLine:
 		# Determine the type of line, treating "tutorial" as "narrator"
 		var is_narrator = dialogue_line.character == "narrator" or dialogue_line.character == "tutorial"
 		var is_timestamp = dialogue_line.character == "time"
+		
+		if dialogue_line.character == "narrator":
+			%IrinaPortrait.show()
+		else:
+			%IrinaPortrait.hide()
 
 		responses_menu.hide()
 		responses_menu.set_responses(dialogue_line.responses)

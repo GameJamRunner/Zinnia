@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://73jm5qjy52vq"]
+[gd_scene load_steps=13 format=3 uid="uid://73jm5qjy52vq"]
 
 [ext_resource type="Script" path="res://game/code/DialogueWidgets/desktop_balloon.gd" id="1_esuuq"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="3_6yq40"]
 [ext_resource type="Texture2D" uid="uid://cj7fvfpjdvpcf" path="res://game/assets/background.png" id="3_cpeu0"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_y2fhi"]
 [ext_resource type="Script" path="res://game/code/DialogueWidgets/message_scroll_container.gd" id="5_05xb1"]
+[ext_resource type="Texture2D" uid="uid://7g63smhgk6yh" path="res://game/assets/chara/portrait_irina.png" id="7_xtb7y"]
 [ext_resource type="Theme" uid="uid://chac18av44lpc" path="res://game/themes/theme_desktop.tres" id="8_ey361"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
@@ -75,25 +76,6 @@ unique_name_in_owner = true
 offset_right = 1280.0
 offset_bottom = 720.0
 texture = ExtResource("3_cpeu0")
-
-[node name="NarratorLabel" type="RichTextLabel" parent="."]
-unique_name_in_owner = true
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 159.0
-offset_top = 638.0
-offset_right = -164.0
-offset_bottom = 714.0
-grow_horizontal = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 20
-bbcode_enabled = true
-text = "narrator: It was a quiet evening when Aria messaged me out of nowhere."
-fit_content = true
-scroll_active = false
-script = ExtResource("3_6yq40")
-seconds_per_step = 0.05
-skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 
 [node name="MessageScrollContainer" type="ScrollContainer" parent="."]
 unique_name_in_owner = true
@@ -169,6 +151,34 @@ text = "Response example"
 layout_mode = 2
 theme = ExtResource("8_ey361")
 text = "Response example"
+
+[node name="IrinaPortrait" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(1058, 520)
+scale = Vector2(0.457527, 0.457527)
+texture = ExtResource("7_xtb7y")
+
+[node name="NarratorLabel" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 159.0
+offset_top = 638.0
+offset_right = -164.0
+offset_bottom = 714.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "We hadn’t spoken much since high school, and seeing her name pop up felt strange—almost nostalgic."
+fit_content = true
+scroll_active = false
+script = ExtResource("3_6yq40")
+seconds_per_step = 0.05
+skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
 [connection signal="response_selected" from="Responses/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]
