@@ -1,0 +1,103 @@
+name: 🚀 Godot CI/CD Pipeline
+
+on: [push, pull_request]
+
+env:
+  GODOT_VERSION: "4.3"
+  GODOT_STATUS: "stable"
+  ITCHIO_USERNAME: "clema"  # Replace with your actual Itch.io username
+  ITCHIO_GAME: "breaker"  # Replace with your actual game name
+  WORK_DIR: "/home/runneruser/actions-runner/_work"
+  ARCHIVE_DIR: "/home/runneruser/.local/share/godot/archives"
+  EXPORT_TEMPLATES_DIR: "/home/runneruser/.local/share/godot/export_templates"
+
+jobs:
+  import-assets:
+    runs-on: self-hosted
+    steps:
+      - name: Set correct ownership and permissions
+        run: |
+          sudo chown -R $(whoami) $GITHUB_WORKSPACE
+          sudo chmod -R u+rwX $GITHUB_WORKSPACE
+
+      - uses: actions/checkout@v4
+
+      - name: 👷 Check and Download Godot Engine
+        run: |
+          if [ ! -f "${{ env.WORK_DIR }}/godot/godot" ]; then
+            mkdir -p ${{ env.WORK_DIR }}/godot  # Ensure the godot directory exists
+            wget -P ${{ env.WORK_DIR }}/godot https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-${{ env.GODOT_STATUS }}/Godot_v${{ env.GODOT_VERSION }}-${{ env.GODOT_STATUS }}_linux.x86_64.zip
+            unzip ${{ env.WORK_DIR }}/godot/Godot_v${{ env.GODOT_VERSION }}-${{ env.GODOT_STATUS }}_linux.x86_64.zip -d ${{ env.WORK_DIR }}/godot
+            mv ${{ env.WORK_DIR }}/godot/Godot_v${{ env.GODOT_VERSION }}-${{ env.GODOT_STATUS }}_linux.x86_64 ${{ env.WORK_DIR }}/godot/godot
+            chmod +x ${{ env.WORK_DIR }}/godot/godot
+          else
+            echo "Godot Engine already exists, skipping download."
+          fi
+
+      - name: 👷 Check and Download Export Templates
+        run: |
+          if [ ! -f "$EXPORT_TEMPLATES_DIR/Godot_v${{ env.GODOT_VERSION }}-${{ env.GODOT_STATUS }}_export_templates.tpz" ]; then
+            wget https://downloads.tuxfamily.org/godotengine/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}-${{ env.GODOT_STATUS }}_export_templates.tpz
+            mkdir -p ${{ env.EXPORT_TEMPLATES_DIR }}
+            mv Godot_v${{ env.GODOT_VERSION }}-${{ env.GODOT_STATUS }}_export_templates.tpz ${{ env.EXPORT_TEMPLATES_DIR }}/
+            unzip -d ${{ env.EXPORT_TEMPLATES_DIR }}/Godot_v${{ env.GODOT_VERSION }}-${{ env.GODOT_STATUS }}_export_templates.tpz -d ${{ env.EXPORT_TEMPLATES_DIR }}
+            mv templates Godot_v${{ env.GODOT_VERSION }}.${{ env.GODOT_STATUS }}
+          else
+            echo "Godot Export Templates already exist, skipping download."
+          fi
+
+      - name: 🎨 Import assets
+        run: ${{ env.WORK_DIR }}/godot/godot --headless --verbose --editor --import --quit
+
+  export-game:
+    runs-on: self-hosted
+    needs: import-assets
+    steps:
+      - name: 🐧 Export Linux 
+        run: |
+          mkdir -p ${{ env.ARCHIVE_DIR }}/LinuxX11/
+          ${{ env.WORK_DIR }}/godot/godot --headless --export-release "LinuxX11" ${{ env.ARCHIVE_DIR }}/LinuxX11/./game.x86_64
+          zip -r ${{ env.ARCHIVE_DIR }}/LinuxX11.zip ${{ env.ARCHIVE_DIR }}/LinuxX11/
+
+      - name: 🚪 Export Windows 
+        run: |
+          mkdir -p ${{ env.ARCHIVE_DIR }}/Windows/
+          ${{ env.WORK_DIR }}/godot/godot --headless --export-release "Windows" ${{ env.ARCHIVE_DIR }}/Windows/game.exe
+          zip -r ${{ env.ARCHIVE_DIR }}/Windows.zip ${{ env.ARCHIVE_DIR }}/Windows/
+
+      - name: 🍎 Export MacOS 
+        run: |
+          mkdir -p ${{ env.ARCHIVE_DIR }}/macOS/
+          ${{ env.WORK_DIR }}/godot/godot --headless --export-release "macOS" ${{ env.ARCHIVE_DIR }}/macOS/game.zip
+          zip -r ${{ env.ARCHIVE_DIR }}/macOS.zip ${{ env.ARCHIVE_DIR }}/macOS/
+
+      - name: 🌐 Export HTML5 
+        run: |
+          mkdir -p ${{ env.ARCHIVE_DIR }}/HTML5/
+          ${{ env.WORK_DIR }}/godot/godot --headless --export-release "HTML5" ${{ env.ARCHIVE_DIR }}/HTML5/index.html
+          zip -r ${{ env.ARCHIVE_DIR }}/HTML5.zip ${{ env.ARCHIVE_DIR }}/HTML5/
+
+  deploy-to-itchio:
+    runs-on: self-hosted
+    needs: export-game
+    env:
+      BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+    steps:
+      - name: 📤 Deploy to Itch.io (Linux)
+        run: butler push ${{ env.ARCHIVE_DIR }}/LinuxX11.zip ${{ env.ITCHIO_USERNAME }}/${{ env.ITCHIO_GAME }}:linux
+          
+      - name: 📤 Deploy to Itch.io (Windows)
+        run: butler push ${{ env.ARCHIVE_DIR }}/Windows.zip ${{ env.ITCHIO_USERNAME }}/${{ env.ITCHIO_GAME }}:windows
+          
+      - name: 📤 Deploy to Itch.io (MacOS)
+        run: butler push ${{ env.ARCHIVE_DIR }}/macOS.zip ${{ env.ITCHIO_USERNAME }}/${{ env.ITCHIO_GAME }}:mac
+          
+      - name: 📤 Deploy to Itch.io (HTML5)
+        run: butler push ${{ env.ARCHIVE_DIR }}/HTML5.zip ${{ env.ITCHIO_USERNAME }}/${{ env.ITCHIO_GAME }}:web
+
+  cleanup:
+    runs-on: self-hosted
+    needs: deploy-to-itchio
+    steps:
+      - name: 🧹 Cleanup Archives
+        run: rm -rf ${{ env.ARCHIVE_DIR }}/*
