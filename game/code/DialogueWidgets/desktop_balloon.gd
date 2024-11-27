@@ -184,6 +184,13 @@ func toggle_all_reply_buttons():
 		if message.has_method("toggle_reply_button"):
 			message.toggle_reply_button()
 
+func add_answer_to_puzzle():
+	if message_history.get_child_count() > 0:
+		var last_child = message_history.get_child(message_history.get_child_count() - 1)
+		var answer = last_child.dialogue_label.text
+		PlayerStats.add_answer("day_01_01", answer)
+		
+
 #region Signals
 
 func _on_mutated(_mutation: Dictionary) -> void:

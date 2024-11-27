@@ -38,8 +38,10 @@ Aria: yeah, maybe. life’s been pretty upside down since high school.
 Irina: what do u mean? ur not in college?
 Aria: nope.
 Aria: my parents wouldn’t let me. they basically locked me in the basement.
+do add_answer_to_puzzle()
 Irina: “locked u up,” huh…?
 Aria: yesterday was my first day off in months. I really needed to talk to someone I know… even if we weren’t the closest friends.
+do add_answer_to_puzzle()
 Irina: don’t say that. we can talk more if u want.
 Aria: …
 Irina: hey, u still there?
