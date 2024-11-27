@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bc75w6lyd8snj"]
+[gd_scene load_steps=8 format=3 uid="uid://bc75w6lyd8snj"]
 
 [ext_resource type="Script" path="res://game/code/Desktop/message.gd" id="1_7gp32"]
 [ext_resource type="Texture2D" uid="uid://d07ta35ha63jn" path="res://game/assets/avatar_aria.png" id="1_dqwca"]
@@ -7,14 +7,22 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_00mi3"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7472w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_583tx"]
+
 [node name="Message" type="HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+offset_right = 500.0
+offset_bottom = 64.0
 size_flags_horizontal = 3
 script = ExtResource("1_7gp32")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+[node name="Avatar" type="TextureRect" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("1_dqwca")
 
@@ -25,12 +33,12 @@ theme_override_colors/font_color = Color(0.129558, 0.129558, 0.129558, 1)
 text = "ARIA"
 
 [node name="DynamicLabelContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_00mi3")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="DynamicLabelContainer"]
-custom_minimum_size = Vector2(100, 0)
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("2_e66yq")
 patch_margin_left = 50
@@ -49,6 +57,11 @@ theme_override_constants/margin_bottom = 10
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-text = "Lorem ipsum dm veniam.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. dhweiufhew
-fwegre"
+text = "Lorem ipsum dm veniam."
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_7472w")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_583tx")
+disabled = true
