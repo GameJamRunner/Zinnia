@@ -36,6 +36,8 @@ var _locale: String = TranslationServer.get_locale()
 ## The menu of responses
 @onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
 
+signal reply_button_pressed(dialogue_line_text: String)
+
 ## The current line
 var dialogue_line: DialogueLine:
 	set(next_dialogue_line):
@@ -241,4 +243,9 @@ func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
 
 func _on_message_reply_button_pressed(dialogue_text: String) -> void:
 	print("Reply button pressed with dialogue:", dialogue_text)
+	emit_signal("reply_button_pressed",dialogue_text)
+
+func wait_for_reply():
+	var dialogue_line_text = await self.reply_button_pressed
+	
 #endregion
