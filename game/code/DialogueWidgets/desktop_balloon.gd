@@ -104,6 +104,7 @@ var dialogue_line: DialogueLine:
 
 func _ready() -> void:
 	balloon.hide()
+	%Background.hide()
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 
 	# If the responses menu doesn't have a next action set, use this one
