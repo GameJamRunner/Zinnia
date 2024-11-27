@@ -186,6 +186,9 @@ func toggle_all_reply_buttons():
 		if message.has_method("toggle_reply_button"):
 			message.toggle_reply_button()
 
+func set_current_puzzle(puzzle: String):
+	PlayerStats.set_current_puzzle(puzzle)
+
 func add_answer_to_puzzle():
 	if message_history.get_child_count() > 0:
 		var last_child = message_history.get_child(message_history.get_child_count() - 1)
@@ -245,7 +248,9 @@ func _on_message_reply_button_pressed(dialogue_text: String) -> void:
 	print("Reply button pressed with dialogue:", dialogue_text)
 	emit_signal("reply_button_pressed",dialogue_text)
 
-func wait_for_reply():
+func wait_for_reply() -> bool:
 	var dialogue_line_text = await self.reply_button_pressed
+	
+	return PlayerStats.is_correct_answer(dialogue_line_text)
 	
 #endregion

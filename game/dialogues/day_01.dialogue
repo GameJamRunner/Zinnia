@@ -61,14 +61,17 @@ tutorial: Use your judgment carefully to decide when to investigate.
 
 # Contradiction Alert
 # The claim about being locked in the kitchen contradicts the earlier statement about being locked in the basement, and saying "I haven’t been able to leave at all" contradicts the earlier mention of having a day off yesterday.
-
+do set_current_puzzle("day_01_01")
 do toggle_all_reply_buttons()
-do wait_for_reply()
-
-Irina: wait… u said u were locked in the basement, but now it’s the kitchen? and what about yesterday? wasn’t that ur day off?
-Aria: oh… I guess I wasn’t clear. it’s kind of both. like, I mostly stay in the basement, but they bring me up to the kitchen to work. yesterday was just a weird exception.
-Irina: hmm… ok. still, that’s rough.
-Aria: yeah, it is. 
+if wait_for_reply() == true:
+	do toggle_all_reply_buttons()
+	Irina: wait… u said u were locked in the basement, but now it’s the kitchen? and what about yesterday? wasn’t that ur day off?
+	Aria: oh… I guess I wasn’t clear. it’s kind of both. like, I mostly stay in the basement, but they bring me up to the kitchen to work. yesterday was just a weird exception.
+	Irina: hmm… ok. still, that’s rough.
+	Aria: yeah, it is. 
+else:
+	do toggle_all_reply_buttons()
+	Aria: yes, that's what I said. anything wrong?
 
 time: 11:30 PM
 Aria: Anyways, enough about me. tell me about college! :)
