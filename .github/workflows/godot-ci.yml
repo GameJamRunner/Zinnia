@@ -5,8 +5,8 @@ on: [push, pull_request]
 env:
   GODOT_VERSION: "4.3"
   GODOT_STATUS: "stable"
-  ITCHIO_USERNAME: "clema"  # Replace with your actual Itch.io username
-  ITCHIO_GAME: "breaker"  # Replace with your actual game name
+  ITCHIO_USERNAME: "polyfization"  # Replace with your actual Itch.io username
+  ITCHIO_GAME: "lying-hearts"  # Replace with your actual game name
   WORK_DIR: "/home/runneruser/actions-runner/_work"
   ARCHIVE_DIR: "/home/runneruser/.local/share/godot/archives"
   EXPORT_TEMPLATES_DIR: "/home/runneruser/.local/share/godot/export_templates"
