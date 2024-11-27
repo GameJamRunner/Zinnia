@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://bwl4ngib3ieni"
+path="res://.godot/imported/day_02.dialogue-edb7c5b9dfc0f30c3cbd25cc9fd0095c.tres"
+
+[deps]
+
+source_file="res://game/dialogues/day_02.dialogue"
+dest_files=["res://.godot/imported/day_02.dialogue-edb7c5b9dfc0f30c3cbd25cc9fd0095c.tres"]
+
+[params]
+
+defaults=true

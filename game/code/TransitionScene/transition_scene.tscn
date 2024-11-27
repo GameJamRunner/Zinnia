@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhkbp8tjlqx4x"]
+
+[ext_resource type="Texture2D" uid="uid://l6n3k0a7r671" path="res://game/assets/chara/portrait_aria_04.png" id="1_gm371"]
+[ext_resource type="FontFile" uid="uid://btofn8fh4rgqb" path="res://game/fonts/Delicious_Handrawn/DeliciousHandrawn-Regular.ttf" id="2_pocwp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k13c6"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_adkmw"]
+
+[node name="TransitionScene" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1307.0
+offset_bottom = 739.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_k13c6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(908, 545)
+scale = Vector2(0.290759, 0.290759)
+texture = ExtResource("1_gm371")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 251.0
+offset_top = 360.0
+offset_right = 689.0
+offset_bottom = 437.0
+theme_override_fonts/font = ExtResource("2_pocwp")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_adkmw")
+text = "Day 2
+-> Continue"

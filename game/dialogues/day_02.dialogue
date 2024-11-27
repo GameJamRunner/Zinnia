@@ -1,0 +1,132 @@
+~ day_01
+
+time: 10:25 PM
+
+Aria: u there?
+Aria: ?
+Aria: Irina
+
+narrator: It was a quiet evening when Aria messaged me out of nowhere. 
+narrator: We hadn’t spoken much since high school, and seeing her name pop up felt strange—almost nostalgic.
+
+- keep it casual
+	Irina: hi… what’s up?
+	Aria: just glad we ran into each other again. haven’t seen u since prom.
+	Irina: oh, yeah… it’s been a while. good to hear from u.
+
+- act friendly
+	Irina: hey! it’s been forever, hasn’t it?
+	Aria: I know, right? just glad we ran into each other again. prom feels like ages ago.
+	Irina: yeah, it really does. I missed talking to u!
+
+- stay guarded
+	Irina: hi… didn’t expect to hear from u.
+	Aria: yeah, I wasn’t sure if I should message u, but I’m glad we ran into each other again.
+	Irina: uh-huh. so, what’s up?
+	Aria: just glad we ran into each other again. haven’t seen u since prom.
+	Irina: um… ok… yeah, same. just didn’t really know what to say to u.
+	Aria: Irina… I just wanna be nice, that’s all.
+
+narrator: The tone shifted, and I couldn’t help but tease her.
+
+Irina: I mean, we didn’t really talk in high school, Ms. Student Council President!
+Aria: ugh, stop teasing me already!
+Aria: I mean it! I actually wanted to get to know u back then.
+Irina: wow, that’s news to me. didn’t know our perfect little queen bee had a soft side. u’ve changed.
+Aria: ;)
+Aria: yeah, maybe. life’s been pretty upside down since high school.
+Irina: what do u mean? ur not in college?
+Aria: nope.
+Aria: my parents wouldn’t let me. they basically locked me in the basement.
+do add_answer_to_puzzle()
+Irina: “locked u up,” huh…?
+Aria: yesterday was my first day off in months. I really needed to talk to someone I know… even if we weren’t the closest friends.
+do add_answer_to_puzzle()
+Irina: don’t say that. we can talk more if u want.
+Aria: …
+Irina: hey, u still there?
+Aria: sorry, I just started crying.
+Irina: aww… it’s ok, we can talk. so what’s going on?
+Aria: well… like I said, my parents locked me in their restaurant. I’ve been stuck in the kitchen for months.
+Aria: I haven’t been able to leave at all.
+
+narrator: Something about what she said didn’t sit right with me. Locked in the kitchen? For months?
+narrator: The more I thought about it, the more the details felt… off.
+narrator: I should look back at what she said earlier. 
+
+tutorial: Some messages might hide a secret. 
+tutorial: Look through the chat history to find any contradictions, then use the reply button to confront Aria and ask what's going on.
+tutorial: Accusing Aria without clear evidence could damage trust.
+tutorial: Use your judgment carefully to decide when to investigate.
+
+# Contradiction Alert
+# The claim about being locked in the kitchen contradicts the earlier statement about being locked in the basement, and saying "I haven’t been able to leave at all" contradicts the earlier mention of having a day off yesterday.
+do set_current_puzzle("day_01_01")
+do toggle_all_reply_buttons()
+if wait_for_reply() == true:
+	do toggle_all_reply_buttons()
+	do add_quote()
+	Irina: wait… u said u were locked in the basement, but now it’s the kitchen? and what about yesterday? wasn’t that ur day off?
+	Aria: oh… I guess I wasn’t clear. it’s kind of both. like, I mostly stay in the basement, but they bring me up to the kitchen to work. yesterday was just a weird exception.
+	Irina: hmm… ok. still, that’s rough.
+	Aria: yeah, it is. 
+else:
+	do toggle_all_reply_buttons()
+	do add_quote()
+	Irina: But you said...
+	Aria: yes, that's what I said. anything wrong?
+
+time: 11:30 PM
+Aria: Anyways, enough about me. tell me about college! :)
+
+narrator: Aria’s story had left me reeling, but now she wanted to know about me. I wasn’t sure how much to share.
+
+- I’m struggling at school
+	Irina: girl…
+	Irina: after hearing ur story, I can’t even complain about my life anymore.
+	Irina: :/
+	Irina: I’m just failing my classes, my prof hates me, and I’ve got, like, zero friends.
+	Irina: u know, typical college drama.
+
+- I have zero friends
+	Irina: honestly…
+	Irina: I’ve got, like, zero friends here. 
+	Irina: It’s been so hard to connect with anyone.
+	Irina: u know how it is, being the odd one out sometimes.
+
+- Pretend to be happy
+	Irina: college is fine, really. busy with classes and stuff, u know how it is.
+	Irina: nothing too crazy, just trying to keep my head above water.
+
+narrator: Whatever I chose to say, I knew Aria would probably see through me.
+
+Aria: oh no, stop! ur amazing! ur musical talent is insane. 
+Aria: I remember u winning all those comps in high school. u worked so hard!
+Irina: thanks, Aria, but idk, I’ve changed a lot since then.
+Aria: but u still sing, right?
+Irina: um, about that…
+Irina: I’m not in music school.
+Irina: I’m not that girl anymore, the one who was always showing off.
+Aria: wait, so u didn’t go? I thought u were so pumped when u got accepted! what happened?
+
+time: 12:15 AM
+Irina: well… stuff happened.
+Irina: I just can’t sing anymore.
+Irina: but hey, I’m at art school now!
+Aria: :0!!!
+Aria: I bet u look super cute in an apron. I wanna see it IRL someday! :)
+do recall_message()
+time: One Message Recalled
+Aria: I bet your work is amazing. I’d love to see what you’re creating someday! :)
+Irina: :)
+Irina: I’ll show u if u wanna see it.
+Irina: it’s getting late tho. gn!
+Aria: don’t be shy—
+Irina: ok, ok. I’m going. good night, Aria.
+
+narrator: As I closed the chat, I couldn’t stop thinking about our conversation. 
+narrator: Aria’s story felt heavy, almost too much to process. 
+narrator: I didn’t know if I believed everything she said, but I could feel her loneliness and desperation.
+narrator: Opening up to her wasn’t as easy as I thought. I wasn’t sure if I wanted her sympathy—or if I could trust her.
+
+=> END
