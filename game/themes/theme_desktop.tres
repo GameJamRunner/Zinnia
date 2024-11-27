@@ -34,6 +34,9 @@ bg_color = Color(0, 0, 0, 1)
 border_width_left = 10
 border_width_right = 10
 border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
 
 [resource]
 Button/colors/font_focus_color = Color(0, 0, 0, 1)

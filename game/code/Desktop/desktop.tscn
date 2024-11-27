@@ -14,7 +14,7 @@ offset_bottom = 40.0
 texture = ExtResource("2_uuhoh")
 
 [node name="Calendar" type="Sprite2D" parent="."]
-position = Vector2(261, 684)
+position = Vector2(276, 612)
 texture = ExtResource("3_bdplk")
 
 [node name="DayLabel" type="Label" parent="Calendar"]
