@@ -71,3 +71,5 @@ texture_hover = ExtResource("6_olo1r")
 texture_disabled = SubResource("ImageTexture_81f86")
 texture_focused = SubResource("ImageTexture_h7701")
 stretch_mode = 3
+
+[connection signal="pressed" from="ReplyButton" to="." method="_on_reply_button_pressed"]

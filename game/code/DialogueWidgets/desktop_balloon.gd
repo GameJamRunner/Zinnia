@@ -87,6 +87,7 @@ var dialogue_line: DialogueLine:
 		else:
 			# Create a new Message instance for non-narrator lines
 			var message = preload("res://game/code/Desktop/message.tscn").instantiate()
+			message.connect("reply_button_pressed", Callable(self, "_on_message_reply_button_pressed"))
 			# Add the message to MessageHistory
 			message_history.add_child(message)
 			# Set up the message
@@ -178,6 +179,11 @@ func recall_message() -> void:
 		message_history.remove_child(last_child)
 		last_child.queue_free()
 
+func toggle_all_reply_buttons():
+	for message in message_history.get_children():
+		if message.has_method("toggle_reply_button"):
+			message.toggle_reply_button()
+
 #region Signals
 
 func _on_mutated(_mutation: Dictionary) -> void:
@@ -226,4 +232,6 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
 	next(response.next_id)
 
+func _on_message_reply_button_pressed(dialogue_text: String) -> void:
+	print("Reply button pressed with dialogue:", dialogue_text)
 #endregion

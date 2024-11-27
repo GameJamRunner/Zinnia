@@ -57,6 +57,7 @@ tutorial: Look through the chat history to find any contradictions, then use the
 tutorial: Accusing Aria without clear evidence could damage trust.
 tutorial: Use your judgment carefully to decide when to investigate.
 
+do toggle_all_reply_buttons()
 # Contradiction Alert
 # The claim about being locked in the kitchen contradicts the earlier statement about being locked in the basement, and saying "I haven’t been able to leave at all" contradicts the earlier mention of having a day off yesterday.
 

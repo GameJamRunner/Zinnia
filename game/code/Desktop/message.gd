@@ -7,6 +7,10 @@ extends HBoxContainer
 @onready var avatar = %Avatar
 @onready var nine_patch_rect = %NinePatchRect
 
+var character_name
+
+signal reply_button_pressed(dialogue_text: String)
+
 # Dictionary mapping character names to avatar textures
 @export var avatar_textures: Dictionary = {
 	"Aria": preload("res://game/assets/avatar_aria.png"),
@@ -25,6 +29,7 @@ extends HBoxContainer
 
 # Setter for the character name
 func set_character_name(name: String) -> void:
+	character_name = name
 	%CharacterLabel.text = name
 	%CharacterLabel.visible = not name.is_empty()
 	
@@ -46,7 +51,7 @@ func set_dialogue_line(dialogue_line: DialogueLine) -> void:
 		await %DialogueLabel.finished_typing
 
 func toggle_reply_button():
-	if name == "Aria":
+	if character_name == "Aria":
 		if $ReplyButton.disabled:
 			# Enable the button if it's currently disabled
 			$ReplyButton.disabled = false
@@ -55,4 +60,7 @@ func toggle_reply_button():
 			$ReplyButton.disabled = true
 	else:
 		$ReplyButton.disabled = true
-		
+
+func _on_reply_button_pressed():
+	if %DialogueLabel and %DialogueLabel.dialogue_line:
+		emit_signal("reply_button_pressed", %DialogueLabel.dialogue_line.text)
