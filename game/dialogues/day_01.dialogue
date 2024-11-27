@@ -105,7 +105,7 @@ Irina: I just can’t sing anymore.
 Irina: but hey, I’m at art school now!
 Aria: :0!!!
 Aria: I bet u look super cute in an apron. I wanna see it IRL someday! :)
-#do recall()
+do recall_message()
 time: One Message Recalled
 Aria: I bet your work is amazing. I’d love to see what you’re creating someday! :)
 Irina: :)

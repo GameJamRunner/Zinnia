@@ -166,6 +166,12 @@ func display_narrator_line(dialogue_line: DialogueLine) -> void:
 	if not dialogue_line.text.is_empty():
 		narrator_label.type_out()
 		await narrator_label.finished_typing
+		
+func recall_message() -> void:
+	if message_history.get_child_count() > 0:
+		var last_child = message_history.get_child(message_history.get_child_count() - 1)
+		message_history.remove_child(last_child)
+		last_child.queue_free()
 
 #region Signals
 
