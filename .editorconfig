@@ -1,0 +1,15 @@
+# EditorConfig helps maintain consistent coding styles between different editors and IDEs
+
+# top-most EditorConfig file
+root = true
+
+# Rules for all files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+
+# Rules for .dialogue files
+[*.dialogue]
+indent_style = tab
+indent_size = 4
