@@ -22,6 +22,8 @@ var will_hide_balloon: bool = false
 
 var _locale: String = TranslationServer.get_locale()
 
+var current_quote: String
+
 ## The base balloon anchor
 @onready var balloon: Control = %Balloon
 
@@ -194,7 +196,12 @@ func add_answer_to_puzzle():
 		var last_child = message_history.get_child(message_history.get_child_count() - 1)
 		var answer = last_child.dialogue_label.text
 		PlayerStats.add_answer("day_01_01", answer)
-		
+
+func add_quote():
+	var message = preload("res://game/code/Desktop/message.tscn").instantiate()
+	message_history.add_child(message)
+	message.set_up_quote(current_quote)
+	#await display_dialogue_line(dialogue_line, message)
 
 #region Signals
 
@@ -250,7 +257,7 @@ func _on_message_reply_button_pressed(dialogue_text: String) -> void:
 
 func wait_for_reply() -> bool:
 	var dialogue_line_text = await self.reply_button_pressed
-	
+	current_quote = dialogue_line_text
 	return PlayerStats.is_correct_answer(dialogue_line_text)
 	
 #endregion

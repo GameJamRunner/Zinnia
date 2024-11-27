@@ -64,3 +64,10 @@ func toggle_reply_button():
 func _on_reply_button_pressed():
 	if %DialogueLabel and %DialogueLabel.dialogue_line:
 		emit_signal("reply_button_pressed", %DialogueLabel.dialogue_line.text)
+
+func set_up_quote(quote: String):
+	%Avatar.hide()
+	%CharacterLabel.hide()
+	%NinePatchRect.texture = preload("res://game/assets/quote_box.png")
+	%DialogueLabel.text = quote
+	$ReplyButton.disabled = true

@@ -21,6 +21,7 @@ size_flags_horizontal = 3
 script = ExtResource("1_7gp32")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(37, 0)
 layout_mode = 2
 
 [node name="Avatar" type="TextureRect" parent="VBoxContainer"]
