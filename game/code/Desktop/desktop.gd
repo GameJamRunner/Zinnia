@@ -29,17 +29,15 @@ func _start_dialogue(day: int):
 
 func on_day_completed():
 	%NextDayButton.text = "Day %d\n-> Continue" % (PlayerStats.current_day)
-	await _play_animation("fade_to_transition")
+	%AnimationPlayer.play("fade_to_transition")
+	await %AnimationPlayer.animation_finished
 
 func _on_next_day_button_pressed():
 	if PlayerStats.current_day in DIALOGUES:
+		%AnimationPlayer.play("fade_out_transition")
+		await %AnimationPlayer.animation_finished
 		_setup_balloon()
 		_start_dialogue(PlayerStats.current_day)
 	else:
 		print("Invalid current day: " + str(PlayerStats.current_day))
 		return
-	await _play_animation("fade_out_transition")
-
-func _play_animation(animation_name: String) -> void:
-	%AnimationPlayer.play(animation_name)
-	await %AnimationPlayer.animation_finished
