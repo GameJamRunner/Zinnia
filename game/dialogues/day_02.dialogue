@@ -10,6 +10,7 @@ Aria: Guess what I woke up to?
 	Irina: …thinking about me?
 	Aria: Nah, stop it!
 - pee on your bed?
+	Irina: …pee on your bed?
 	Aria: Nah, stop it!
 	Aria: And ew, no—do you think I’m a toddler?
 	Aria: wait, unless...
@@ -96,21 +97,21 @@ Aria: Get ready.
 Irina: I was just venting, but—
 
 - Free snacks!!!
-do set_var(PlayerStates.free_snacks, true)
-Irina: Free snacks? I’m in!
-Aria: It’s not much, but it’s all I’ve got.
-Aria: Get ready!
+	do set_var(PlayerStates.free_snacks, true)
+	Irina: Free snacks? I’m in!
+	Aria: It’s not much, but it’s all I’ve got.
+	Aria: Get ready!
 
 - I need snacks but not you
-do set_var(PlayerStates.free_snacks, false)
-Irina: You don’t have to, really. I’ll be fine.
-Aria: I want to. Snacks solve everything.
-Irina: I don't know
-narrator: I didn’t really want to meet up with her. 
-narrator: It wasn’t anything against Aria—I just felt too drained to pretend to be okay in person. 
-narrator: But there was no polite way to stop her once she’d decided.
-Irina: …okay. If you insist.
-Aria: I do! Get ready!
+	do set_var(PlayerStates.free_snacks, false)
+	Irina: You don’t have to, really. I’ll be fine.
+	Aria: I want to. Snacks solve everything.
+	Irina: I don't know
+	narrator: I didn’t really want to meet up with her. 
+	narrator: It wasn’t anything against Aria—I just felt too drained to pretend to be okay in person. 
+	narrator: But there was no polite way to stop her once she’d decided.
+	Irina: …okay. If you insist.
+	Aria: I do! Get ready!
 
 time: 11:32 PM
 

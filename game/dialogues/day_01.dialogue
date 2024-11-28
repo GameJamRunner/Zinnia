@@ -57,7 +57,7 @@ narrator: I should look back at what she said earlier.
 tutorial: Some messages might hide a secret. 
 tutorial: Look through the chat history to find any contradictions, then use the reply button to confront Aria and ask what's going on.
 tutorial: Accusing Aria without clear evidence could damage trust.
-tutorial: Use your judgment carefully to decide when to investigate.
+tutorial: Use your judgment carefully to decide which line to investigate.
 
 # Contradiction Alert
 # The claim about being locked in the kitchen contradicts the earlier statement about being locked in the basement, and saying "I haven’t been able to leave at all" contradicts the earlier mention of having a day off yesterday.

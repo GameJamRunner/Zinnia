@@ -5,7 +5,8 @@ var current_puzzle: String = "day_01_01"
 
 var puzzle_scores: Dictionary = {
 	"day_01_01": {"score": false, "answer": []},
-	"day_02_01": {"score": false, "answer": []},
+	"day_02_bird": {"score": false, "answer": []},
+	"day_02_cookie": {"score": false, "answer": []},
 }
 
 func set_current_puzzle(puzzle_name: String):
