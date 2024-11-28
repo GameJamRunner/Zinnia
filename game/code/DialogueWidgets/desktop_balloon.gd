@@ -195,11 +195,11 @@ func toggle_all_reply_buttons():
 func set_current_puzzle(puzzle: String):
 	PlayerStats.set_current_puzzle(puzzle)
 
-func add_answer_to_puzzle():
+func add_answer_to_puzzle(puzzle: String):
 	if message_history.get_child_count() > 0:
 		var last_child = message_history.get_child(message_history.get_child_count() - 1)
 		var answer = last_child.dialogue_label.text
-		PlayerStats.add_answer("day_01_01", answer)
+		PlayerStats.add_answer(puzzle, answer)
 
 func add_quote():
 	var message = preload("res://game/code/Desktop/message.tscn").instantiate()

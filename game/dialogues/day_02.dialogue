@@ -1,132 +1,183 @@
 ~ day_02
 
-time: 10:25 PM
+time: 9:58 AM
 
-Aria: u there?
-Aria: ?
-Aria: Irina
+Aria: Good morning!
+Aria: Guess what I woke up to?
+- what?
+	Irina: what? I'm not good with guessing.
+- thinking about me?
+	Irina: …thinking about me?
+	Aria: Nah, stop it!
+- pee on your bed?
+	Aria: Nah, stop it!
+	Aria: And ew, no—do you think I’m a toddler?
+	Aria: wait, unless...
+	do recall_message()
+	time: One Message Recalled
+	
+Aria: Actually
+Aria: It’s a little bird!
+time: [picture of a bandaged bird]
 
-narrator: It was a quiet evening when Aria messaged me out of nowhere. 
-narrator: We hadn’t spoken much since high school, and seeing her name pop up felt strange—almost nostalgic.
+Aria: I found it on my balcony this morning.
+do add_answer_to_puzzle("day_02_bird")
+Aria: Looks like a cat got him, but he managed to escape…
+do add_answer_to_puzzle("day_02_bird")
+Aria: So I took care of him!
+Irina: Aww.
+Irina: So what are you going to do with him?
+Aria: I don’t know. I’ve never taken care of a bird before. 
+Aria: Should I keep it?
+Irina: Well, birds belong outside. You should probably set it free once it’s healthy.
+Aria: Ummm, I don’t know… "freedom" is what nearly got him killed. 
+Aria: If it weren’t for me, he’d be dead by now.
+Irina: I don’t know. I just don’t like the idea of wild animals being trapped.
+Aria: Yeah, I guess you’re right. 
+Aria: But where should I let it go? The park?
+Irina: Just open your window and let it fly out. 
+Aria: …I can’t do that. I live on the 31st floor.
 
-- keep it casual
-	Irina: hi… what’s up?
-	Aria: just glad we ran into each other again. haven’t seen u since prom.
-	Irina: oh, yeah… it’s been a while. good to hear from u.
-
-- act friendly
-	Irina: hey! it’s been forever, hasn’t it?
-	Aria: I know, right? just glad we ran into each other again. prom feels like ages ago.
-	Irina: yeah, it really does. I missed talking to u!
-
-- stay guarded
-	Irina: hi… didn’t expect to hear from u.
-	Aria: yeah, I wasn’t sure if I should message u, but I’m glad we ran into each other again.
-	Irina: uh-huh. so, what’s up?
-	Aria: just glad we ran into each other again. haven’t seen u since prom.
-	Irina: um… ok… yeah, same. just didn’t really know what to say to u.
-	Aria: Irina… I just wanna be nice, that’s all.
-
-narrator: The tone shifted, and I couldn’t help but tease her.
-
-Irina: I mean, we didn’t really talk in high school, Ms. Student Council President!
-Aria: ugh, stop teasing me already!
-Aria: I mean it! I actually wanted to get to know u back then.
-Irina: wow, that’s news to me. didn’t know our perfect little queen bee had a soft side. u’ve changed.
-Aria: ;)
-Aria: yeah, maybe. life’s been pretty upside down since high school.
-Irina: what do u mean? ur not in college?
-Aria: nope.
-Aria: my parents wouldn’t let me. they basically locked me in the basement.
-do add_answer_to_puzzle()
-Irina: “locked u up,” huh…?
-Aria: yesterday was my first day off in months. I really needed to talk to someone I know… even if we weren’t the closest friends.
-do add_answer_to_puzzle()
-Irina: don’t say that. we can talk more if u want.
-Aria: …
-Irina: hey, u still there?
-Aria: sorry, I just started crying.
-Irina: aww… it’s ok, we can talk. so what’s going on?
-Aria: well… like I said, my parents locked me in their restaurant. I’ve been stuck in the kitchen for months.
-Aria: I haven’t been able to leave at all.
-
-narrator: Something about what she said didn’t sit right with me. Locked in the kitchen? For months?
-narrator: The more I thought about it, the more the details felt… off.
-narrator: I should look back at what she said earlier. 
-
-tutorial: Some messages might hide a secret. 
-tutorial: Look through the chat history to find any contradictions, then use the reply button to confront Aria and ask what's going on.
-tutorial: Accusing Aria without clear evidence could damage trust.
-tutorial: Use your judgment carefully to decide when to investigate.
+narrator: Again, something felt off. But why would she lie about it?
 
 # Contradiction Alert
-# The claim about being locked in the kitchen contradicts the earlier statement about being locked in the basement, and saying "I haven’t been able to leave at all" contradicts the earlier mention of having a day off yesterday.
-do set_current_puzzle("day_01_01")
+do set_current_puzzle("day_02_bird")
 do toggle_all_reply_buttons()
 if wait_for_reply() == true:
 	do toggle_all_reply_buttons()
-	Irina: wait… u said u were locked in the basement, but now it’s the kitchen? and what about yesterday? wasn’t that ur day off?
+	Irina: Uh… the 31st floor? How did the bird and the cat get up on your balcony?
 	do add_quote()
-	Aria: oh… I guess I wasn’t clear. it’s kind of both. like, I mostly stay in the basement, but they bring me up to the kitchen to work. yesterday was just a weird exception.
-	Irina: hmm… ok. still, that’s rough.
-	Aria: yeah, it is. 
+	Aria: …oh. I exaggerated. I don’t actually live that high up. 
+	Aria: It’s more like… the 3rd floor.
+	Irina: Hmm
+	Aria: Yeah, yeah. I just panicked a little. 
+else:
+	do toggle_all_reply_buttons()
+	Irina: But you said...
+	do add_quote()
+	Aria: yes, that's what I said. anything wrong?
+	Irina: nothing...
+	narrator: But later I realized...
+
+narrator: That didn’t make sense. How could a bird—or a cat—get up on the 31st floor?
+narrator: Is she just a bad liar?
+narrator: I didn’t want to believe Aria had anything to do with the bird getting hurt. 
+narrator: But if she wasn’t telling the truth, then why lie? 
+narrator: The thought nagged at me, even though I tried to push it away.
+
+time: 2:01 PM
+
+Aria: Finally, a break…
+Irina: What a coincidence, I’m zoning out in an art history class.
+Aria: Wanna chat?
+Irina: Sure
+Aria: You remember the art exhibition where we met?
+Aria: I heard it was from a pretty famous artist.
+Irina: It was! Her work is just incredible.
+Irina: The way she shapes everything, how she shows emotion—it’s on another level. Walking through that gallery felt electric. It was so beautiful, it made me want to cry a little.
+Irina: You know what I do sometimes?
+Irina: I search online for artists who went to my school and daydream about being like them one day.
+Aria: I’m sure you’ll surpass them!
+Irina: Thanks for the hype, Aria!
+Irina: But seriously, I don’t know if I’ve got what it takes.
+Irina: They’re so talented, even their college work blows mine out of the water.
+Aria: I get it. Some people are just born to be amazing…
+Aria: Right?
+Irina: I loved that artist so much. You can’t even imagine…
+Irina: I just want to be like her.
+Irina: Not like what I’m doing now.
+Irina: I can’t even focus in class, and my last assignment got an F. And that was from the nicest professor in the department.
+Irina: I just feel like crap.
+Aria: Irina, are you free tonight?
+Irina: Huh? I don’t have any classes after this. Why? Is something wrong?
+Aria: No. I’m coming over.
+Aria: With a lot of snacks.
+Aria: Get ready.
+Irina: I was just venting, but—
+
+- Free snacks!!!
+do set_var(PlayerStates.free_snacks, true)
+Irina: Free snacks? I’m in!
+Aria: It’s not much, but it’s all I’ve got.
+Aria: Get ready!
+
+- I need snacks but not you
+do set_var(PlayerStates.free_snacks, false)
+Irina: You don’t have to, really. I’ll be fine.
+Aria: I want to. Snacks solve everything.
+Irina: I don't know
+narrator: I didn’t really want to meet up with her. 
+narrator: It wasn’t anything against Aria—I just felt too drained to pretend to be okay in person. 
+narrator: But there was no polite way to stop her once she’d decided.
+Irina: …okay. If you insist.
+Aria: I do! Get ready!
+
+time: 11:32 PM
+
+if PlayerStates.free_snacks:
+	Irina: That was so much fun!!!
+	Aria: I know, right? snacks and video games. That’s all you need.
+	Aria: You’re awesome. Don’t let those thought demons get to you!
+	Irina: Thought demons!
+	Irina: Didn’t know that was a thing. Did you make it up?
+	Aria: Yeah, but it fits, doesn’t it?
+	Aria: Anyway, just call me if you need me.
+	Aria: I’ll always be there for you.
+else:
+	Irina: Thanks for coming… I guess.
+	Aria: You guess? Come on, we had snacks and played games. What’s better than that?
+	narrator: I wasn’t trying to hurt her feelings. 
+	narrator: I just didn’t have the energy to pretend everything was okay.
+	Irina: I mean, it was fine. I just… didn’t feel up for company tonight.
+	Aria: That’s exactly why I came. You’ve been way too hard on yourself lately.
+	Aria: Seriously, though. Call me if you need me. Even if you don’t want me to come over, I’ll still be there for you.
+	narrator: It was hard to argue with her logic, even if I hated how transparent I’d been.
+	Irina: …Thanks, Aliyah.
+
+Irina: By the way, those almond cookies you brought last night were amazing. Where did you get them?
+Aria: Oh, I made them myself.
+Irina: Really? They were perfect! You’re an incredible baker.
+Aria: Thanks! I’ve had some practice.
+Irina: Okay, now I have to know—
+Irina: how did you make them?
+Aria: Oh, uh… it’s pretty simple.
+Aria: You mix butter, flour, sugar, a little vanilla extract, and then… a pinch of cinnamon.
+
+narrator: I noticed her pause, her confident tone faltering just slightly.
+narrator: Did she really bake?
+
+# Contradiction Alert
+do set_current_puzzle("day_02_cookie")
+do toggle_all_reply_buttons()
+if wait_for_reply() == true:
+	do toggle_all_reply_buttons()
+	Irina: Wait, cinnamon? That doesn’t sound right for almond cookies.
+	do add_quote()
+	Irina: Are you sure that’s the recipe?
+	Aria: …okay, fine. You got me. I didn’t make them from scratch. They’re from my parents’ bakery. I just helped out a little.
+	Irina: Your parents have a bakery? That’s so cool!
+	Aria: It’s really not a big deal. Just a small place.
+	Aria: I mostly stay in the back when I’m there.
+	Irina: What do your parents do, then?
+	Aria: They’re just… running the restaurant and bakery. Nothing exciting. 
 else:
 	do toggle_all_reply_buttons()
 	Irina: But you said...
 	do add_quote()
 	Aria: yes, that's what I said. anything wrong?
 
-time: 11:30 PM
-Aria: Anyways, enough about me. tell me about college! :)
-
-narrator: Aria’s story had left me reeling, but now she wanted to know about me. I wasn’t sure how much to share.
-
-- I’m struggling at school
-	Irina: girl…
-	Irina: after hearing ur story, I can’t even complain about my life anymore.
-	Irina: :/
-	Irina: I’m just failing my classes, my prof hates me, and I’ve got, like, zero friends.
-	Irina: u know, typical college drama.
-
-- I have zero friends
-	Irina: honestly…
-	Irina: I’ve got, like, zero friends here. 
-	Irina: It’s been so hard to connect with anyone.
-	Irina: u know how it is, being the odd one out sometimes.
-
-- Pretend to be happy
-	Irina: college is fine, really. busy with classes and stuff, u know how it is.
-	Irina: nothing too crazy, just trying to keep my head above water.
-
-narrator: Whatever I chose to say, I knew Aria would probably see through me.
-
-Aria: oh no, stop! ur amazing! ur musical talent is insane. 
-Aria: I remember u winning all those comps in high school. u worked so hard!
-Irina: thanks, Aria, but idk, I’ve changed a lot since then.
-Aria: but u still sing, right?
-Irina: um, about that…
-Irina: I’m not in music school.
-Irina: I’m not that girl anymore, the one who was always showing off.
-Aria: wait, so u didn’t go? I thought u were so pumped when u got accepted! what happened?
-
-time: 12:15 AM
-Irina: well… stuff happened.
-Irina: I just can’t sing anymore.
-Irina: but hey, I’m at art school now!
-Aria: :0!!!
-Aria: I bet u look super cute in an apron. I wanna see it IRL someday! :)
+Aria: Anyway, let’s not talk about me. What about you? 
+Aria: You’ve been feeling down lately—how are you holding up?
+Irina: I'm feeling better now. 
+Aria: Oh good, don’t let me catch you feeling down again, or I’ll stay over next time!
+Aria: By brute force!
+Irina: Wait, you wanted to stay over?
+Aria: Next time.
+Aria: I won’t leave.
 do recall_message()
 time: One Message Recalled
-Aria: I bet your work is amazing. I’d love to see what you’re creating someday! :)
-Irina: :)
-Irina: I’ll show u if u wanna see it.
-Irina: it’s getting late tho. gn!
-Aria: don’t be shy—
-Irina: ok, ok. I’m going. good night, Aria.
+Aria: Good night!
+Irina: gn
+narrator: It was probably a joke… 
+narrator: right? 
 
-narrator: As I closed the chat, I couldn’t stop thinking about our conversation. 
-narrator: Aria’s story felt heavy, almost too much to process. 
-narrator: I didn’t know if I believed everything she said, but I could feel her loneliness and desperation.
-narrator: Opening up to her wasn’t as easy as I thought. I wasn’t sure if I wanted her sympathy—or if I could trust her.
-
-=> END
