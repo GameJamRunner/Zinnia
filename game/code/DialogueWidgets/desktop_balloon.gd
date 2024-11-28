@@ -40,6 +40,8 @@ var current_quote: String
 
 signal reply_button_pressed(dialogue_line_text: String)
 
+signal day_completed()
+
 ## The current line
 var dialogue_line: DialogueLine:
 	set(next_dialogue_line):
@@ -49,6 +51,8 @@ var dialogue_line: DialogueLine:
 
 		# The dialogue has finished, so close the balloon
 		if not next_dialogue_line:
+			PlayerStats.current_day += 1
+			emit_signal("day_completed")
 			queue_free()
 			return
 
@@ -199,9 +203,8 @@ func add_answer_to_puzzle():
 
 func add_quote():
 	var message = preload("res://game/code/Desktop/message.tscn").instantiate()
-	message_history.add_child(message)
 	message.set_up_quote(current_quote)
-	#await display_dialogue_line(dialogue_line, message)
+	message_history.add_child(message)
 
 #region Signals
 
@@ -258,6 +261,7 @@ func _on_message_reply_button_pressed(dialogue_text: String) -> void:
 func wait_for_reply() -> bool:
 	var dialogue_line_text = await self.reply_button_pressed
 	current_quote = dialogue_line_text
+	print("current_quote:", current_quote)
 	return PlayerStats.is_correct_answer(dialogue_line_text)
 	
 #endregion

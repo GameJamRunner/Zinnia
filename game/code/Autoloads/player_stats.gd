@@ -1,5 +1,6 @@
 extends Node
 
+var current_day: int = 1
 var current_puzzle: String = "day_01_01"
 
 var puzzle_scores: Dictionary = {

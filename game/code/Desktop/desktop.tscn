@@ -1,9 +1,110 @@
-[gd_scene load_steps=5 format=3 uid="uid://y0g3p8do1xy6"]
+[gd_scene load_steps=13 format=3 uid="uid://y0g3p8do1xy6"]
 
 [ext_resource type="Script" path="res://game/code/Desktop/desktop.gd" id="1_2oqqo"]
 [ext_resource type="Texture2D" uid="uid://cj7fvfpjdvpcf" path="res://game/assets/background.png" id="2_uuhoh"]
 [ext_resource type="Texture2D" uid="uid://83q8ik588sxf" path="res://game/assets/calendar.png" id="3_bdplk"]
 [ext_resource type="FontFile" uid="uid://btofn8fh4rgqb" path="res://game/fonts/Delicious_Handrawn/DeliciousHandrawn-Regular.ttf" id="4_8qm7g"]
+[ext_resource type="Texture2D" uid="uid://l6n3k0a7r671" path="res://game/assets/chara/portrait_aria_04.png" id="5_crlji"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k13c6"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_adkmw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2x1hu"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_rvgif"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BlackPanel:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_472go"]
+resource_name = "fade_out_transition"
+length = 2.0
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BlackPanel:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.2, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0t35w"]
+resource_name = "fade_to_transition"
+length = 2.0
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BlackPanel:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hljwn"]
+_data = {
+"RESET": SubResource("Animation_rvgif"),
+"fade_out_transition": SubResource("Animation_472go"),
+"fade_to_transition": SubResource("Animation_0t35w")
+}
 
 [node name="Desktop" type="Node2D"]
 script = ExtResource("1_2oqqo")
@@ -18,6 +119,7 @@ position = Vector2(276, 604)
 texture = ExtResource("3_bdplk")
 
 [node name="DayLabel" type="Label" parent="Calendar"]
+unique_name_in_owner = true
 offset_left = -33.0
 offset_top = -29.0
 offset_right = 32.0
@@ -26,3 +128,49 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_8qm7g")
 theme_override_font_sizes/font_size = 40
 text = "Day 1"
+
+[node name="TransitionScene" type="Node2D" parent="."]
+visible = false
+
+[node name="Panel" type="Panel" parent="TransitionScene"]
+offset_right = 1307.0
+offset_bottom = 739.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_k13c6")
+
+[node name="Sprite2D" type="Sprite2D" parent="TransitionScene"]
+position = Vector2(908, 545)
+scale = Vector2(0.290759, 0.290759)
+texture = ExtResource("5_crlji")
+
+[node name="Button" type="Button" parent="TransitionScene"]
+offset_left = 251.0
+offset_top = 360.0
+offset_right = 689.0
+offset_bottom = 437.0
+theme_override_fonts/font = ExtResource("4_8qm7g")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_adkmw")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_adkmw")
+text = "Day 2
+-> Continue"
+
+[node name="BlackPanel" type="Panel" parent="."]
+offset_right = 1307.0
+offset_bottom = 739.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2x1hu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../TransitionScene")
+libraries = {
+"": SubResource("AnimationLibrary_hljwn")
+}
