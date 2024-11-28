@@ -20,6 +20,7 @@ func _setup_balloon():
 	balloon.day_completed.connect(on_day_completed)
 
 func _start_dialogue(day: int):
+	%DayLabel.text = "Day " + str(PlayerStats.current_day)
 	var dialogue_path = DIALOGUES.get(day)
 	if dialogue_path:
 		balloon.start(load(dialogue_path), "day_%02d" % day)
@@ -27,12 +28,8 @@ func _start_dialogue(day: int):
 		print("Dialogue not found for day: " + str(day))
 
 func on_day_completed():
-	await _play_animation("fade_to_transition")
-	_update_day_ui()
-
-func _update_day_ui():
-	%DayLabel.text = "Day " + str(PlayerStats.current_day)
 	%NextDayButton.text = "Day %d\n-> Continue" % (PlayerStats.current_day)
+	await _play_animation("fade_to_transition")
 
 func _on_next_day_button_pressed():
 	if PlayerStats.current_day in DIALOGUES:

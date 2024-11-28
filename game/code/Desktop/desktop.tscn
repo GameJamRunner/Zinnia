@@ -165,7 +165,7 @@ text = "Day 2
 -> Continue"
 
 [node name="BlackPanel" type="Panel" parent="."]
-z_index = 2
+z_index = 100
 offset_right = 1307.0
 offset_bottom = 739.0
 mouse_filter = 2

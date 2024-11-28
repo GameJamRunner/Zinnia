@@ -1,7 +1,10 @@
 extends Node
 
-var current_day: int = 1
+var current_day: int = 2
 var current_puzzle: String = "day_01_01"
+
+# Gameplay variables
+var free_snacks = false
 
 var puzzle_scores: Dictionary = {
 	"day_01_01": {"score": false, "answer": []},

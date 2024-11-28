@@ -206,6 +206,9 @@ func add_quote():
 	message.set_up_quote(current_quote)
 	message_history.add_child(message)
 
+func set_var(_var: bool, state:bool):
+	_var = state
+
 #region Signals
 
 func _on_mutated(_mutation: Dictionary) -> void:

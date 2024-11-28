@@ -97,13 +97,13 @@ Aria: Get ready.
 Irina: I was just venting, but—
 
 - Free snacks!!!
-	do set_var(PlayerStates.free_snacks, true)
+	do set_var(PlayerStats.free_snacks, true)
 	Irina: Free snacks? I’m in!
 	Aria: It’s not much, but it’s all I’ve got.
 	Aria: Get ready!
 
 - I need snacks but not you
-	do set_var(PlayerStates.free_snacks, false)
+	do set_var(PlayerStats.free_snacks, false)
 	Irina: You don’t have to, really. I’ll be fine.
 	Aria: I want to. Snacks solve everything.
 	Irina: I don't know
@@ -115,7 +115,7 @@ Irina: I was just venting, but—
 
 time: 11:32 PM
 
-if PlayerStates.free_snacks:
+if PlayerStats.free_snacks:
 	Irina: That was so much fun!!!
 	Aria: I know, right? snacks and video games. That’s all you need.
 	Aria: You’re awesome. Don’t let those thought demons get to you!
@@ -133,10 +133,11 @@ else:
 	Aria: That’s exactly why I came. You’ve been way too hard on yourself lately.
 	Aria: Seriously, though. Call me if you need me. Even if you don’t want me to come over, I’ll still be there for you.
 	narrator: It was hard to argue with her logic, even if I hated how transparent I’d been.
-	Irina: …Thanks, Aliyah.
+	Irina: …Thanks, Aria.
 
 Irina: By the way, those almond cookies you brought last night were amazing. Where did you get them?
-Aria: Oh, I made them myself.
+Aria: Oh, the almond cookies, I made them myself.
+do add_answer_to_puzzle("day_02_cookie")
 Irina: Really? They were perfect! You’re an incredible baker.
 Aria: Thanks! I’ve had some practice.
 Irina: Okay, now I have to know—
