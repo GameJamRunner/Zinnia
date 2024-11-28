@@ -65,15 +65,15 @@ do set_current_puzzle("day_01_01")
 do toggle_all_reply_buttons()
 if wait_for_reply() == true:
 	do toggle_all_reply_buttons()
-	do add_quote()
 	Irina: wait… u said u were locked in the basement, but now it’s the kitchen? and what about yesterday? wasn’t that ur day off?
+	do add_quote()
 	Aria: oh… I guess I wasn’t clear. it’s kind of both. like, I mostly stay in the basement, but they bring me up to the kitchen to work. yesterday was just a weird exception.
 	Irina: hmm… ok. still, that’s rough.
 	Aria: yeah, it is. 
 else:
 	do toggle_all_reply_buttons()
-	do add_quote()
 	Irina: But you said...
+	do add_quote()
 	Aria: yes, that's what I said. anything wrong?
 
 time: 11:30 PM
