@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://y0g3p8do1xy6"]
+[gd_scene load_steps=15 format=3 uid="uid://y0g3p8do1xy6"]
 
 [ext_resource type="Script" path="res://game/code/Desktop/desktop.gd" id="1_2oqqo"]
 [ext_resource type="Texture2D" uid="uid://cj7fvfpjdvpcf" path="res://game/assets/background.png" id="2_uuhoh"]
 [ext_resource type="Texture2D" uid="uid://83q8ik588sxf" path="res://game/assets/calendar.png" id="3_bdplk"]
 [ext_resource type="FontFile" uid="uid://btofn8fh4rgqb" path="res://game/fonts/Delicious_Handrawn/DeliciousHandrawn-Regular.ttf" id="4_8qm7g"]
 [ext_resource type="Texture2D" uid="uid://l6n3k0a7r671" path="res://game/assets/chara/portrait_aria_04.png" id="5_crlji"]
+[ext_resource type="AudioStream" uid="uid://0htqf2ibjo0x" path="res://game/audios/Lo-Fi Vol2 Milky Tea Cut 60.wav" id="6_u0d2j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k13c6"]
 bg_color = Color(0, 0, 0, 1)
@@ -70,6 +71,21 @@ tracks/1/keys = {
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_x1qg1"]
+resource_name = "fade_to_black"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BlackPanel:theme_override_styles/panel:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_0t35w"]
 resource_name = "fade_to_transition"
 length = 2.0
@@ -97,21 +113,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_x1qg1"]
-resource_name = "fade_to_black"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../BlackPanel:theme_override_styles/panel:bg_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hljwn"]
@@ -193,5 +194,10 @@ root_node = NodePath("../TransitionScene")
 libraries = {
 "": SubResource("AnimationLibrary_hljwn")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_u0d2j")
+volume_db = -20.0
+autoplay = true
 
 [connection signal="pressed" from="TransitionScene/NextDayButton" to="." method="_on_next_day_button_pressed"]

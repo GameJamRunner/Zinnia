@@ -20,6 +20,9 @@ func _setup_balloon():
 	balloon.day_completed.connect(on_day_completed)
 
 func _start_dialogue(day: int):
+	if day == 3:
+		$AudioStreamPlayer.stream = load("res://game/audios/Lo-Fi Vol2 Loungin Cut 60.wav")
+		$AudioStreamPlayer.play()
 	%DayLabel.text = "Day " + str(PlayerStats.current_day)
 	var dialogue_path = DIALOGUES.get(day)
 	if dialogue_path:

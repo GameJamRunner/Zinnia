@@ -1,6 +1,6 @@
 extends Node
 
-var current_day: int = 3
+var current_day: int = 1
 var current_puzzle: String = "day_01_01"
 
 var lies_told = 0
@@ -60,7 +60,7 @@ func get_total_score() -> int:
 func get_attachment_name() -> String:
 	if attachment < -1:
 		return ATTACHMENT_NAMES["low"]
-	elif attachment > 3:
+	elif attachment > 5:
 		return ATTACHMENT_NAMES["high"]
 	else:
 		return ATTACHMENT_NAMES["middle"]
