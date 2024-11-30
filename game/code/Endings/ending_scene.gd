@@ -16,4 +16,5 @@ func _ready():
 
 
 func _on_back_button_pressed():
+	PlayerStats.reset()
 	get_tree().change_scene_to_file("res://game/code/TitleScene/title_scene.tscn")

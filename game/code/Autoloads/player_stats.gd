@@ -64,3 +64,17 @@ func get_attachment_name() -> String:
 		return ATTACHMENT_NAMES["high"]
 	else:
 		return ATTACHMENT_NAMES["middle"]
+
+func reset():
+	current_day = 1
+	current_puzzle = "day_01_01"
+	lies_told = 0
+	attachment = 0
+	free_snacks = false
+
+	# Reset puzzle scores
+	for puzzle_id in puzzle_scores.keys():
+		puzzle_scores[puzzle_id]["score"] = false
+		puzzle_scores[puzzle_id]["answer"] = []
+
+	print("Game has been reset!")
