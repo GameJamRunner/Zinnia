@@ -1,0 +1,263 @@
+[gd_scene load_steps=12 format=3 uid="uid://cc26hajo8vd5c"]
+
+[ext_resource type="Script" path="res://game/code/TitleScene/title_scene.gd" id="1_ejvu6"]
+[ext_resource type="Texture2D" uid="uid://bvf2ys1q8c3si" path="res://art/title_screen.PNG" id="1_ikqc2"]
+[ext_resource type="Texture2D" uid="uid://df0ls7vt18jqb" path="res://art/opening-cg-8e-base.png" id="2_ieedd"]
+[ext_resource type="Texture2D" uid="uid://doc5xb7hslwjn" path="res://art/opening-cg-8e-panel1.png" id="3_8hyk5"]
+[ext_resource type="Texture2D" uid="uid://kw0kmkkkfacg" path="res://art/opening-cg-8e-panel2.png" id="4_sdxdo"]
+[ext_resource type="AudioStream" uid="uid://c3pqpn738exnf" path="res://game/audios/Lo-Fi Vol2 Pitter Patter Cut 60.wav" id="6_dinfj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lpf3r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqpj7"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_ct2a3"]
+resource_name = "start_game"
+length = 10.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CGBase:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlackPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 2.5, 7, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CGPanel1:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CGPanel2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CGPanel1:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CGPanel2:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(4.3, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_65fg7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CGBase:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlackPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CGPanel1:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CGPanel2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CGPanel1:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CGPanel2:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jk65q"]
+_data = {
+"RESET": SubResource("Animation_65fg7"),
+"start_game": SubResource("Animation_ct2a3")
+}
+
+[node name="TitleScene" type="Node2D"]
+script = ExtResource("1_ejvu6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(640.333, 360.5)
+scale = Vector2(0.680556, 0.680556)
+texture = ExtResource("1_ikqc2")
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 544.0
+offset_top = 502.0
+offset_right = 731.0
+offset_bottom = 593.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lpf3r")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_lpf3r")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lpf3r")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_lpf3r")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_lpf3r")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_lpf3r")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_lpf3r")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_lpf3r")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_lpf3r")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_lpf3r")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lpf3r")
+text = "START"
+
+[node name="CGBase" type="TextureRect" parent="."]
+visible = false
+offset_right = 7109.0
+offset_bottom = 4000.0
+scale = Vector2(0.18175, 0.18175)
+mouse_filter = 2
+texture = ExtResource("2_ieedd")
+
+[node name="CGPanel1" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+offset_right = 7109.0
+offset_bottom = 4000.0
+scale = Vector2(0.18175, 0.18175)
+mouse_filter = 2
+texture = ExtResource("3_8hyk5")
+
+[node name="CGPanel2" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+offset_right = 7109.0
+offset_bottom = 4000.0
+scale = Vector2(0.18175, 0.18175)
+mouse_filter = 2
+texture = ExtResource("4_sdxdo")
+
+[node name="BlackPanel" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(1280, 720)
+offset_right = 1307.0
+offset_bottom = 739.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qqpj7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jk65q")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_dinfj")
+volume_db = -20.0
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
