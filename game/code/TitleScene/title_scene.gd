@@ -2,7 +2,7 @@ extends Node2D
 
 
 func _on_button_pressed():
-	$BlackPanel
+	$Button.disabled = true
 	$AudioStreamPlayer.play()
 	$AnimationPlayer.play("start_game")
 	await $AnimationPlayer.animation_finished

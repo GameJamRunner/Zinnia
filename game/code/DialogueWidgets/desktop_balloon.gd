@@ -216,7 +216,7 @@ func increment_attachment(score: int):
 	PlayerStats.attachment += score
 
 func decrement_attachment(score: int):
-	PlayerStats.attachment += score
+	PlayerStats.attachment -= score
 
 #region Signals
 

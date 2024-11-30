@@ -155,8 +155,8 @@ text = "Response example"
 [node name="IrinaPortrait" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 visible = false
-position = Vector2(1058, 520)
-scale = Vector2(0.457527, 0.457527)
+position = Vector2(1076.16, 550.53)
+scale = Vector2(0.422374, 0.422374)
 texture = ExtResource("7_xtb7y")
 
 [node name="NarratorLabel" type="RichTextLabel" parent="."]
