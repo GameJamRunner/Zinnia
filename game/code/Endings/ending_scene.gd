@@ -13,3 +13,7 @@ func _ready():
 
 	$BlackPanel.show()
 	$AnimationPlayer.play("black_to_trans")
+
+
+func _on_back_button_pressed():
+	get_tree().change_scene_to_file("res://game/code/TitleScene/title_scene.tscn")
