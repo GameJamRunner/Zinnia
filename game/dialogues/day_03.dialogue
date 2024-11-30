@@ -24,6 +24,7 @@ narrator: Instead, I had been watching random YouTube videos all morning.
 narrator: Should I reply? Or should I focus and study.
 
 - Reply to Aria
+	do increment_attachment(1)
 	narrator: Maybe I should just reply. It would take two seconds.
 	Irina: Hey, sorry for ignoring you all day. I’ve just been distracted.
 	Aria: What are you doing right now?
@@ -31,6 +32,7 @@ narrator: Should I reply? Or should I focus and study.
 	Aria: Ok.
 
 - Focus and study
+	do decrement_attachment(1)
 	narrator: I sighed and put my phone down. 
 	narrator: I shook my head and forced myself to focus. 
 	narrator: If I didn’t study now, I’d regret it later.
@@ -51,12 +53,15 @@ Aria: Please just say something. Even if it’s just “leave me alone.”
 narrator: But what should I say?
 
 - Apologize
+	do increment_attachment(1)
 	Irina: Sorry.
 	Aria: That’s all? Just “sorry”?
 	Aria: I just want you to at least explain why you ignored me all day.
 	Aria: You can tell me if I did something wrong or said something weird. 
 
 - Say you didn't check your phone
+	do decrement_attachment(2)
+	do increment_lies_told()
 	Irina: Sorry, I didn’t check my phone.
 	Aria: Really? All day? Not even once?
 	Irina: Yeah… I got distracted.
@@ -65,6 +70,7 @@ narrator: But what should I say?
 	narrator: I hated lying to her, but it wasn’t entirely untrue.
 
 - Go to Sleep
+	do decrement_attachment(2)
 
 
 narrator: I closed my computer and turned off the light. I didn’t have the energy to deal with this tonight.

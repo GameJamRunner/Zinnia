@@ -7,9 +7,11 @@ Aria: Guess what I woke up to?
 - what?
 	Irina: what? I'm not good with guessing.
 - thinking about me?
+	do increment_attachment(1)
 	Irina: …thinking about me?
 	Aria: Nah, stop it!
 - pee on your bed?
+	do decrement_attachment(1)
 	Irina: …pee on your bed?
 	Aria: Nah, stop it!
 	Aria: And ew, no—do you think I’m a toddler?
@@ -97,12 +99,14 @@ Aria: Get ready.
 Irina: I was just venting, but—
 
 - Free snacks!!!
+	do increment_attachment(2)
 	do set_var(PlayerStats.free_snacks, true)
 	Irina: Free snacks? I’m in!
 	Aria: It’s not much, but it’s all I’ve got.
 	Aria: Get ready!
 
 - I need snacks but not you
+	do decrement_attachment(2)
 	do set_var(PlayerStats.free_snacks, false)
 	Irina: You don’t have to, really. I’ll be fine.
 	Aria: I want to. Snacks solve everything.

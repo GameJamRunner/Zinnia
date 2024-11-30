@@ -209,6 +209,15 @@ func add_quote():
 func set_var(_var: bool, state:bool):
 	_var = state
 
+func increment_lies_told():
+	PlayerStats.lies_told += 1
+
+func increment_attachment(score: int):
+	PlayerStats.attachment += score
+
+func decrement_attachment(score: int):
+	PlayerStats.attachment += score
+
 #region Signals
 
 func _on_mutated(_mutation: Dictionary) -> void:

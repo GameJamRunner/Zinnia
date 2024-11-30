@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://y0g3p8do1xy6"]
+[gd_scene load_steps=14 format=3 uid="uid://y0g3p8do1xy6"]
 
 [ext_resource type="Script" path="res://game/code/Desktop/desktop.gd" id="1_2oqqo"]
 [ext_resource type="Texture2D" uid="uid://cj7fvfpjdvpcf" path="res://game/assets/background.png" id="2_uuhoh"]
@@ -99,10 +99,26 @@ tracks/1/keys = {
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_x1qg1"]
+resource_name = "fade_to_black"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BlackPanel:theme_override_styles/panel:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hljwn"]
 _data = {
 "RESET": SubResource("Animation_rvgif"),
 "fade_out_transition": SubResource("Animation_472go"),
+"fade_to_black": SubResource("Animation_x1qg1"),
 "fade_to_transition": SubResource("Animation_0t35w")
 }
 

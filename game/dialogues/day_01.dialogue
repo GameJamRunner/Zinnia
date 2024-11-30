@@ -15,11 +15,13 @@ narrator: We hadn’t spoken much since high school, and seeing her name pop up 
 	Irina: oh, yeah… it’s been a while. good to hear from u.
 
 - act friendly
+	do increment_attachment(1)
 	Irina: hey! it’s been forever, hasn’t it?
 	Aria: I know, right? just glad we ran into each other again. prom feels like ages ago.
 	Irina: yeah, it really does. I missed talking to u!
 
 - stay guarded
+	do decrement_attachment(1)
 	Irina: hi… didn’t expect to hear from u.
 	Aria: yeah, I wasn’t sure if I should message u, but I’m glad we ran into each other again.
 	Irina: uh-huh. so, what’s up?
@@ -82,6 +84,7 @@ Aria: Anyways, enough about me. tell me about college! :)
 narrator: Aria’s story had left me reeling, but now she wanted to know about me. I wasn’t sure how much to share.
 
 - I’m struggling at school
+	do increment_attachment(1)
 	Irina: girl…
 	Irina: after hearing ur story, I can’t even complain about my life anymore.
 	Irina: :/
@@ -89,12 +92,15 @@ narrator: Aria’s story had left me reeling, but now she wanted to know about m
 	Irina: u know, typical college drama.
 
 - I have zero friends
+	do increment_attachment(2)
 	Irina: honestly…
 	Irina: I’ve got, like, zero friends here. 
 	Irina: It’s been so hard to connect with anyone.
 	Irina: u know how it is, being the odd one out sometimes.
 
 - Pretend to be happy
+	do decrement_attachment(2)
+	do increment_lies_told()
 	Irina: college is fine, really. busy with classes and stuff, u know how it is.
 	Irina: nothing too crazy, just trying to keep my head above water.
 

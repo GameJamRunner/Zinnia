@@ -28,6 +28,10 @@ func _start_dialogue(day: int):
 		print("Dialogue not found for day: " + str(day))
 
 func on_day_completed():
+	if PlayerStats.current_day > DIALOGUES.size():
+		%AnimationPlayer.play("fade_to_black")
+		await %AnimationPlayer.animation_finished
+		get_tree().change_scene_to_file("res://game/code/Endings/ending_scene.tscn")
 	%NextDayButton.text = "Day %d\n-> Continue" % (PlayerStats.current_day)
 	%AnimationPlayer.play("fade_to_transition")
 	await %AnimationPlayer.animation_finished

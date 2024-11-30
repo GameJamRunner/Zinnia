@@ -3,6 +3,15 @@ extends Node
 var current_day: int = 3
 var current_puzzle: String = "day_01_01"
 
+var lies_told = 0
+var attachment = 0
+
+const ATTACHMENT_NAMES: Dictionary = {
+	"low": "Distant",
+	"middle": "Neutral",
+	"high": "Close"
+}
+
 # Gameplay variables
 var free_snacks = false
 
@@ -40,3 +49,18 @@ func print_all_scores() -> void:
 	for puzzle_id in puzzle_scores.keys():
 		var score = puzzle_scores[puzzle_id]["score"]
 		print("- ", puzzle_id, ": ", score)
+
+func get_total_score() -> int:
+	var total_score = 0
+	for puzzle_id in puzzle_scores.keys():
+		if puzzle_scores[puzzle_id]["score"]:
+			total_score += 1
+	return total_score
+
+func get_attachment_name() -> String:
+	if attachment < -1:
+		return ATTACHMENT_NAMES["low"]
+	elif attachment > 3:
+		return ATTACHMENT_NAMES["high"]
+	else:
+		return ATTACHMENT_NAMES["middle"]
