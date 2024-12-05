@@ -29,6 +29,7 @@ general/balloon_path="res://game/code/DialogueWidgets/desktop_balloon.tscn"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="res://game/assets/kenney_cursor-pack/Vector/Outline/cursor_none.svg"
 
 [editor_plugins]
 
